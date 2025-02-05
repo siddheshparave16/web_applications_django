@@ -18,7 +18,7 @@ This Task Management System is a fully functional Django web application, develo
 - poetry
 
 ## Getting Started
-Clone the repository and navigate to the project directoryy:
+Clone the repository and navigate to the project directory:
 
 ```sh
 git clone https://github.com/llazzaro/web_applications_django.git
