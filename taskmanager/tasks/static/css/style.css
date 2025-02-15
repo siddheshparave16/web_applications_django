@@ -1,0 +1,101 @@
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #1a1a1a; /* Darker background */
+    color: #4725b9; /* Bright purple text */
+    border-top: 3px solid #2b1f87; /* Purple border */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}
+
+footer:hover {
+    background-color: #333333; /* Slightly lighter dark gray on hover */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Sticky Footer Layout */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* About Page Specific Styles */
+.about-container {
+    border: 2px solid #000; /* Black border around the whole container */
+    background-color: #91a7f7; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.about-header {
+    border: 2px solid #333; /* Darker border for distinction */
+    background-color: #e0f7fa; /* Light cyan background */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.mission-vision {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #333; /* Darker border */
+    background-color: #75dbe9; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.mission, .vision {
+    border: 2px solid #00796b; /* Greenish border */
+    background-color: #75dbe9; /* Light cyan background */
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.team {
+    border: 2px solid #333; /* Darker border for distinction */
+    background-color: #75dbe9; /* Light yellow background */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.team-member {
+    border: 2px solid #000; /* Black border for team members */
+    background-color: #75dbe9; /* Light pink background */
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.team-photo {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #000; /* Border around the photo */
+}
+
+.team-info {
+    flex: 1;
+    padding: 10px;
+}

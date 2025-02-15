@@ -1,0 +1,43 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block title %} About Us {% endblock %}
+
+{% block content %}
+
+<div class="about-container">
+    <header class="about-header ">
+        <h1>About Us</h1>
+        <p>Learn more about our mission, vision, and the team behind our success.</p>
+    </header>
+    
+    <section class="mission-vision">
+        <div class="mission">
+            <h2>Our Mission</h2>
+            <p>Our mission is to provide the best task management solutions to help you stay organized and productive.</p>
+        </div>
+        <div class="vision">
+            <h2>Our Vision</h2>
+            <p>We envision a world where everyone can manage their tasks efficiently and achieve their goals effortlessly.</p>
+        </div>
+    </section>
+    
+    <section class="team">
+        <h2>Meet the Team</h2>
+        <div class="team-member">
+            <img src="{% static 'images/john_doe.jpg' %}" alt="John Doe" class="team-photo">
+            <h3>John Doe</h3>
+            <p>CEO & Founder</p>
+            <p>John is the visionary behind our company, leading us towards success with his innovative ideas and leadership skills.</p>
+        </div>
+        <div class="team-member">
+            <img src="{% static 'images/jane_smith.jpg' %}" alt="Jane Smith" class="team-photo">
+            <h3>Jane Smith</h3>
+            <p>Chief Technology Officer</p>
+            <p>Jane is the tech genius who ensures our platform is always running smoothly and efficiently.</p>
+        </div>
+        <!-- Add more team members as needed -->
+    </section>
+</div>
+
+{% endblock %}

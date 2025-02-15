@@ -1,0 +1,20 @@
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #003f7e; /* Lighter blue for better contrast */
+    color: #030d5a; /* White text for readability */
+    border-top: 2px solid #df0ec3; /* Darker blue border */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    width: 100%;
+    position: fixed; /* Keep it at the bottom of the viewport */
+    bottom: 0;
+    z-index: 10;
+}
+
+/* Optional Hover Effect */
+footer:hover {
+    background-color: #152778; /* Slightly darker on hover */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition */
+}
