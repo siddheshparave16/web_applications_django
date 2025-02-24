@@ -1,0 +1,12 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+    <h1>Internal Server Error</h1>
+    <p>We're sorry, but something went wrong on our end.</p>
+    <p>Please try again later or return to the homepage.</p>
+    <p>
+        <a href="{% url 'tasks:home' %}" class="btn btn-primary">
+            Return to the Homepage
+        </a>
+    </p>
+{% endblock %}
