@@ -1,0 +1,17 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h1> Check Task page </h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Please Insert Task ID</label>
+    <input type="text" name="id" id="id">
+    <input type="submit" value="submit">
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+</form>
+{% endblock  %}

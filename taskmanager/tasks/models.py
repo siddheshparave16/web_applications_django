@@ -14,12 +14,17 @@ class Epic(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)        # Set once, at creation
     updated_at = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, related_name='created_epics', on_delete=models.CASCADE)
+    sprints = models.ManyToManyField('Sprint', related_name='epics')  # Fix: String reference for Sprint
 
 
 
 # Create your models here.
 
-class Task(models.Model):
+class VersionMixing:
+    version = models.IntegerField(default=0)
+
+
+class Task( VersionMixing, models.Model):
     STATUS_CHOICES = [
         ('UNASSIGNED', 'Unassigned'),
         ('IN_PROGRESS', 'In Progress'),
@@ -82,6 +87,7 @@ class Sprint(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, related_name='created_sprints', on_delete=models.CASCADE)
     tasks = models.ManyToManyField(Task, related_name='sprints', blank=True)
+
 
     class Meta:
         constraints = [
