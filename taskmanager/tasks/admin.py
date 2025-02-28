@@ -4,8 +4,8 @@ from tasks.models import Task, Epic, Sprint
 class TaskAdmin(admin.ModelAdmin):
 
     # special configuration for the admin Interface behaves for a Task model
-    list_display = ('id', 'title', 'description', 'status', 'owner', 'created_at', 'updated_at', 'due_date')
-    list_filter = ("status", "created_at")
+    list_display = ('id', 'title', 'description', 'status', 'priority', 'owner', 'created_at', 'updated_at', 'due_date')
+    list_filter = ("status", "created_at", 'priority')
 
     # actions for admin to perform on selected tasks
     actions = ['mark_as_in_progress', 'mark_as_done', 'mark_as_archived']

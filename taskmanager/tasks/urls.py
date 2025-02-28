@@ -1,6 +1,9 @@
 from django.urls import path, register_converter
 from django.views.generic import TemplateView
-from .views import TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView, create_task_on_sprint
+from .views import (TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView,
+                    create_task_on_sprint, task_home, sprint_list_view, sprint_details_view, 
+                    epic_list_view, epic_detail_view)
+
 from . import views, converters
 
 
@@ -10,7 +13,7 @@ register_converter(converters.DateConverter, 'yyyymmdd')    # register the custo
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='tasks/home.html'), name='home'),
+    path('', task_home, name='home'),
     path('help/', TemplateView.as_view(template_name='tasks/help.html'), name='help'),
     path('about/', TemplateView.as_view(template_name='tasks/about.html'), name='about'),
     path('tasks/', TaskListView.as_view(), name = 'task-list'),                         # Get - all tasks
@@ -19,6 +22,14 @@ urlpatterns = [
     path('tasks/<int:pk>/edit/', TaskUpdateView.as_view(), name='task-update'),         # PUT/PAT0CH - Update a task
     path('tasks/<int:pk>/delete/', TaskDeleteView.as_view(), name='task-delete'),       # DELETE - Delete a task
     path('tasks/sprint/add/<int:pk>/', create_task_on_sprint, name='task-add-to-sprint'),
+    # sprints view
+    path('sprints/', sprint_list_view, name='sprint-list'),
+    path('sprints/<int:sprint_id>/', sprint_details_view, name='sprint-detail'),
+
+    # epics view
+    path('epics/', epic_list_view, name='epic-list'),
+    path('epics/<int:epic_id>/', epic_detail_view, name='epic-detail')
+
 ]
 
 # custom errors handler

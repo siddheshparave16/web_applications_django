@@ -1,0 +1,14 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+   <h1>Epic List</h1>
+
+   <ul>
+   {% for epic in epics %}
+      <li>
+         <a href="{% url 'tasks:epic-detail' epic.id %}">{{epic.name}}</a>
+      </li>
+   {% endfor %}
+   <ul>
+{% endblock  %}
+

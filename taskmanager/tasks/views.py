@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -7,8 +7,11 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, Http404
 from .services import task_services
 from .services.task_services import create_task_and_add_to_sprint, claim_task, TaskAlreadyClaimedException, remove_task_from_sprint
 from .services.sprint_services import create_sprint, set_sprint_epic
-from tasks.models import Task
+from tasks.models import Task, Sprint, Epic
 from rest_framework import status
+from django.conf import settings
+from collections import defaultdict
+
 
 
 
@@ -120,7 +123,7 @@ def create_sprint_view(request: HttpRequest) -> HttpResponse:
 
         sprint = create_sprint(sprint_data)
 
-        return render(request, 'sprint_details.html', {'sprint': sprint})
+        return redirect(request, 'sprint_details.html', sprint.id)
 
     else:
         # Render an empty form for creating a sprint
@@ -158,6 +161,76 @@ def set_sprint_epic_view(request):
     return JsonResponse({'error': 'Invalid request method. Only POST is allowed.'}, status=405)
 
 
+def my_view(request):
+    context = {
+        "header_template": settings.TEMPLATE_PARTS["header"],
+        "footer_template": settings.TEMPLATE_PARTS["footer"]
+    }
+
+    return render(request, "my_template.html", context)
+
+
+# view for home page of our website
+
+def task_home(request):
+
+    #  fetch all tasks at once
+    tasks = Task.objects.filter(status__in = ['UNASSIGNED', 'IN_PROGRESS', 'DONE', 'ARCHIVED'])
+
+    # imnitial dictionary
+    context = defaultdict(list)
+
+    # Categorize task into their respective list
+    for task in tasks:
+        if task.status == "UNASSIGNED":
+            context['unassigned_tasks'].append(task)
+        elif task.status == "IN_PROGRESS":
+            context['in_progress_tasks'].append(task)
+        elif task.status == "DONE":
+            context['done_tasks'].append(task)
+        elif task.status == "ARCHIved":
+            context['archived_tasks'].append(task)
+
+
+    return render(request, "tasks/home.html", context)
+
+
+# view for sprints
+def sprint_list_view(request):
+    # fetch all sprints
+    sprints = Sprint.objects.all()
+    context = {'sprints': sprints}
+
+    return render(request, 'tasks/sprints_list.html', context=context)
+
+
+def sprint_details_view(request, sprint_id: Sprint):
+
+    # Fetch the sprint object or return a 404 if it doesn't exist
+    sprint = get_object_or_404(Sprint, id=sprint_id)
+    context = {'sprint': sprint}
+
+    # Render the sprint details template
+    return render(request, 'tasks/sprint_details.html', context)
+
+
+# views for Epics
+def epic_list_view(request):
+    # fetch all Epic
+    epics = Epic.objects.all()
+    context = {'epics': epics}
+
+    return render(request, 'tasks/epics_list.html', context=context)
+
+
+def epic_detail_view(request,epic_id:Epic):
+    # Fetch the sprint object or return a 404 if it doesn't exist
+    epic = get_object_or_404(Epic, id=epic_id)
+    context = {'epic': epic}
+
+    return render(request, 'tasks/epic_detail.html', context)
+
+
 # custom error views 
 
 def custom_404(request, exception):
@@ -165,4 +238,8 @@ def custom_404(request, exception):
 
 def custom_500(request, exception):
     return render(request, '500.html', {}, status=500)
+
+
+
+
 

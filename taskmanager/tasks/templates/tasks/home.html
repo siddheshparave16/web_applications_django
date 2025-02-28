@@ -7,98 +7,88 @@ Task Manager
 
 {% block content %}
 
+<div class="container mt-5">
+<h2>Tasks by Status</h2>
 <p style="margin-top: 20px;">
     A task manager helps you stay organized by providing a centralized platform to create, update, and track tasks effortlessly. 
     Whether you're managing personal to-do lists or collaborating with a team, it ensures every task is accounted for and completed on time. 
     With features like prioritization, deadlines, and reminders, a task manager streamlines your workflow and boosts productivity.
 </p>
 
-<div style="display: flex; justify-content: space-between; margin-top: 20px; align-items: stretch; gap: 10px;">
-    <!-- To Do Section -->
-    <div style="flex: 1; display: flex; flex-direction: column;">
-        <div class="card" style="height: 100%;">
-            <div class="card-header">
-                To DO
-            </div>
-            <div class="card-body">
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">Notification</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Alice</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">Test Geolocation</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Bob</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">User Interface Flow</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Bob</p>
-                        </div>
-                    </div>
-                </div>      
-            </div>
-        </div>
-    </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px; align-items: stretch; gap: 10px;">
 
-    <!-- In Progress Section -->
-    <div style="flex: 1; display: flex; flex-direction: column;">
-        <div class="card" style="height: 100%;">
-            <div class="card-header">
-                In Progress
-            </div>
-            <div class="card-body">
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">Geolocation Algorithm</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Susan</p>
-                        </div>
-                    </div>
+        <!-- To Do Section - Unassigned Tasks -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    Unassigned
                 </div>
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">User Authentication</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Josh</p>
+                <div class="card-body">
+                    {% for task in unassigned_tasks %}
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <h6 class="card-title"><a href="{% url 'tasks:task-detail' task.id %}"> {{ task.title }} </a></h6>
+                            <div style="display: flex; align-items: center;">
+                                <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <p style="margin: 0;">Owner: {{ task.owner.username|default:"None" }}</p>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No tasks are currently unassigned.</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Done Section -->
-    <div style="flex: 1; display: flex; flex-direction: column;">
-        <div class="card" style="height: 100%;">
-            <div class="card-header">
-                Done
-            </div>
-            <div class="card-body">
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h6 class="card-title">Design Event Mapping UI</h6>
-                        <div style="display: flex; align-items: center;">
-                            <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
-                            <p style="margin: 0;">Steven</p>
+        <!-- In Progress Tasks Section -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    In Progress
+                </div>
+                <div class="card-body">
+                    {% for task in in_progress_tasks %}
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <h6 class="card-title"><a href="{% url 'tasks:task-detail' task.id %}"> {{ task.title }} </a></h6>
+                            <div style="display: flex; align-items: center;">
+                                <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <p style="margin: 0;">{{ task.owner.username|default:"None" }}</p>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No tasks are currently in progress.</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+
+        <!-- Completed Tasks Section -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    Completed
+                </div>
+                <div class="card-body">
+                    {% for task in done_tasks %}
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <h6 class="card-title"><a href="{% url 'tasks:task-detail' task.id %}"> {{ task.title }} </a></h6>
+                            <div style="display: flex; align-items: center;">
+                                <img src="{% static 'images/default_user.png' %}" alt="Notification" class="img-thumbnail" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <p style="margin: 0;">{{ task.owner.username|default:"None" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>No tasks are completed yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

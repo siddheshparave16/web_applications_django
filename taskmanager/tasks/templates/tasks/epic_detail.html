@@ -1,0 +1,13 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+<h1> Epic Details </h1>
+<h2> {{epic.title}} </h2>
+<p>{{epic.description}}</p>
+<p>{{epic.created_at}}</p>
+<p>{{epic.creator}}</p>
+
+<a href="{% url 'tasks:epic-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Epic List</a>
+
+{% endblock  %}
+
