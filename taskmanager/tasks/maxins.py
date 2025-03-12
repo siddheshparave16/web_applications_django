@@ -1,4 +1,4 @@
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, Http404
 from .services.task_services import can_add_task_to_sprint
 
 
@@ -9,13 +9,24 @@ class SprintTaskWithinRangeMixin:
     """
 
     def dispatch(self, request, *args, **kwargs):
-        task = self.object() if hasattr(self, 'get_object') else None
+        # Handle the object for UpdateView, and None for CreateView
+        task = None
+        if hasattr(self, 'get_object'):
+            try:
+                task = self.get_object()
+            except (AttributeError, Http404):
+                task = None
+
         sprint_id = request.POST.get('sprint')
 
         if sprint_id:
             # If a task exists (for UpdateView) or it about to created( for CreateView)
-            if task or request.method == 'POST':
+            if task or request.method == "POST":
                 if not can_add_task_to_sprint(task, sprint_id):
-                    return HttpResponseBadRequest(" task creation date is outside the date range of the associated sprint.")
-                return super().dispatch(request, *args, **kwargs)
+                    return HttpResponseBadRequest(
+                        " task creation date is outside the date range of the associated sprint."
+                        )
+        
+        # Proceed with normal request handling
+        return super().dispatch(request, *args, **kwargs)
             

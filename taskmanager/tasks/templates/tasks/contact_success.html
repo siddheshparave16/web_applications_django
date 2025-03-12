@@ -1,0 +1,12 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Contact Message Sent!</h1>
+    <p>Thank You for reached out! We have received your message and will respond soon as possible.</p>
+    <a href="{% url 'tasks:home'%}" class="btn btn-primary">Return Home</a>
+</div>
+
+{% endblock  %}
+

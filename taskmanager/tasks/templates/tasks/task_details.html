@@ -2,13 +2,45 @@
 
 {% block content %}
 
-<h1>Task Details</h1>
-<h2>{{ task.title }}</h2>
-<p>{{ task.description }}</p>
-<p>Created Date: {{ task.created_at }}</p>
-<p>Due Date: {{ task.due_date }}</p>
-<a href="{% url 'tasks:task-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Task List</a>
-<a href="{% url 'tasks:task-update' task.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Edit</a>
-<a href = "{% url 'tasks:task-delete' task.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Delete</a>
+<h1 class="text-center" style="margin-bottom:-8rem;">Task Details</h1>
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+        <h2 class="mb-4">{{ task.title }}</h2>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Description</h2>
+                <p class="card-text">{{task.description}}</p>
+                <p>Created Date: {{ task.created_at }}</p>
+                <p>Due Date: {{ task.due_date }}</p>
+
+                <!--Email list-->
+                <h3>Watchers</h3>
+                <ul class="list-unstyled">
+                    {% for watcher in task.watchers.all %}
+                        <li>{{watcher.email}}</li>
+                    {% endfor %}
+                </ul>
+
+                {% if task.file_upload %}
+                    <a href="{{ task.file_upload.url }}" download>Download File</a>
+                {% endif %}
+
+                {% if task.image_upload %}
+                    <div>
+                        <img src="{{ task.image_upload.url}}" alt="Task Image" style="max-width: 300px;">
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="mt-4 d-inline-block">
+            <a href="{% url 'tasks:task-update' task.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
+            <a href = "{% url 'tasks:task-delete' task.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Delete</a>
+            <a href="{% url 'tasks:task-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Task List</a>
+        </div>
+
+    </div>
+</div>
 
 {% endblock  %}

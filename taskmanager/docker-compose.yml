@@ -13,7 +13,16 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - my-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - my-network
+
 volumes:
   postgres-data:
-networks:
-  my-network:
+  redis_data:

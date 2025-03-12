@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tasks.models import Task, Epic, Sprint
+from tasks.models import Task, Epic, Sprint, SubscribedEmail
 
 class TaskAdmin(admin.ModelAdmin):
 
@@ -52,9 +52,14 @@ class SprintAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description', 'start_date', 'end_date', 'created_at', 'updated_at')
 
 
+class SubscribedEmailAdmin(admin.ModelAdmin):
+    list_display = ('email', 'task')
+
+
 # Register your models here.
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Epic, EpicAdmin)
 admin.site.register(Sprint, SprintAdmin)
+admin.site.register(SubscribedEmail, SubscribedEmailAdmin)
 
 

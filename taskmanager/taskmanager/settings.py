@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'tasks',
     'storages',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,38 @@ INTERNAL_IPS = [
 
 # AWS_S3_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
 # AWS_S3_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
+
+
+# Email settings configuration - Custom settings
+# - In DEBUG mode, emails are printed to the console for development/testing.
+# - In production (DEBUG=False), emails are sent using SMTP.
+# - Environment variables are used for production settings with default fallbacks.
+# - EMAIL_USE_TLS must be set to "True" as a string for TLS to be enabled.
+
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.getenv("EMAIL_HOST", "mailhog")
+    EMAIL_PORT = int(os.getenv("EMAIL_PORT", "1025"))
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "default@email.com")
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "default@example.com")
+    EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False") == "True"
+    
+
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+
+"""
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+"""

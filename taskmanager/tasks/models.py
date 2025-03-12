@@ -52,6 +52,9 @@ class Task( VersionMixing, models.Model):
                               null=True, blank=True, db_comment="Foreign key to the User who currently owns the task")
     
     epic = models.ForeignKey(Epic, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    file_upload = models.FileField(upload_to='tasks/files/', null=True, blank=True)
+    image_upload = models.ImageField(upload_to='tasks/images/', null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # Set `created_at` for the first save if it doesn't exist
@@ -102,4 +105,12 @@ class Sprint(models.Model):
         ]
 
 
+class SubscribedEmail(models.Model):
+    email = models.EmailField()
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='watchers')
+
+
+# Model for store Unique UUID to prevent duplication.
+class Formsubmission(models.Model):
+    uuid = models.UUIDField(unique=True)
 
