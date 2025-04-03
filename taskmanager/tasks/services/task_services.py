@@ -31,7 +31,7 @@ def create_task_and_add_to_sprint(task_data: dict[str,str], sprint_id: int, crea
     create a task and add it to a sprint
     """
 
-    # fetch the sprint by its id
+    # Fetch the sprint by its ID
     sprint = Sprint.objects.get(id=sprint_id)
 
     # get current time and date for task
@@ -42,7 +42,7 @@ def create_task_and_add_to_sprint(task_data: dict[str,str], sprint_id: int, crea
         raise ValidationError("Cannot add task to sprint: current time is not within a sprint startdate and enddate")
 
     # transaction.atomic ensure that all operation completed successfully or not at all
-    with transaction.atmoic():
+    with transaction.atomic():
         # create a task
         task = Task.objects.create(
             title = task_data['title'],
@@ -53,7 +53,7 @@ def create_task_and_add_to_sprint(task_data: dict[str,str], sprint_id: int, crea
         # add the task to the sprint
         sprint.tasks.add(task)
 
-        return task
+    return task
 
 
 class TaskAlreadyClaimedException(Exception):

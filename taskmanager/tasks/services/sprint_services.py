@@ -5,6 +5,7 @@ from django.db import transaction
 from datetime import datetime
 
 
+
 def create_sprint(sprint_data: dict[str, str], creator: User) -> Sprint:
     """
     Creates a new sprint and associates it with the given creator.
@@ -78,7 +79,8 @@ def get_task_by_id(task_pk: Task)-> Task|None:
 def get_sprint_by_task(task:Task)-> list[Task]:
     return Sprint.objects.filter(tasks=task)
 
-def save_sprint_for_task(task:Task, sprints:list[Sprint]):
+def save_sprint_for_task(task:Task, sprints:list[Sprint], user):
     for sprint in sprints:
+        sprint.creator = user
         sprint.save()
         sprint.tasks.add(task)

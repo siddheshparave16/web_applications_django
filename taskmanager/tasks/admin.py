@@ -1,6 +1,8 @@
 from django.contrib import admin
 from tasks.models import Task, Epic, Sprint, SubscribedEmail
 
+
+# admin customization class
 class TaskAdmin(admin.ModelAdmin):
 
     # special configuration for the admin Interface behaves for a Task model
@@ -61,5 +63,6 @@ admin.site.register(Task, TaskAdmin)
 admin.site.register(Epic, EpicAdmin)
 admin.site.register(Sprint, SprintAdmin)
 admin.site.register(SubscribedEmail, SubscribedEmailAdmin)
+
 
 

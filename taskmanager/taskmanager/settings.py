@@ -45,11 +45,14 @@ INSTALLED_APPS = [
     'tasks',
     'storages',
     'widget_tweaks',
+    'accounts',
 ]
 
 MIDDLEWARE = [
+    "tasks.middlewares.RequestTimeMiddleware",                  # Custom middleware
     'django.middleware.security.SecurityMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',          # manually installed middleware
+    'csp.middleware.CSPMiddleware',                             # CSP Middleware (Add it here)
+    'debug_toolbar.middleware.DebugToolbarMiddleware',          # Debug toolbar
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -196,3 +199,58 @@ CACHES = {
     }
 }
 """
+
+
+# login and logout redirect
+
+LOGIN_REDIRECT_URL = "tasks:home"
+LOGOUT_REDIRECT_URL = "accounts:login"
+
+
+# configuration for project to use new user model
+AUTH_USER_MODEL = "accounts.TaskManagerUser"
+
+AUTHENTICATION_BACKEND = [
+    "accounts.backends.OrganizationUsernameOrEmailBackend",
+]
+
+
+# # In development, keep it False unless you are testing with HTTPS.
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+
+
+
+# if not DEBUG:  
+#     SECURE_HSTS_SECONDS = 31536000  # 1 year  
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True  
+#     SECURE_HSTS_PRELOAD = True  
+
+
+# Content Security Policy (CSP) Settings  
+CSP_DEFAULT_SRC = ("'self'",)  # Allow content only from our own domain  
+
+CSP_STYLE_SRC = ("'self'", "https://cdn.jsdelivr.net", "https://code.jquery.com", "'unsafe-inline'")  # Allow external styles  
+
+CSP_SCRIPT_SRC = ("'self'", "https://cdn.jsdelivr.net", "https://code.jquery.com", "'unsafe-inline'")  # Allow external scripts  
+
+CSP_IMG_SRC = ("'self'", "data:", "https://your-cdn.com", "https://example.com")  # Allow images from our domain & external sources  
+
+
+# Prevents browsers from MIME-type sniffing, enforcing declared Content-Type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
+# Ensures browsers only send the Referer header to the same origin, improving privacy
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+
+# Use Argon2 for stronger security, with PBKDF2 as a fallback.
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',  # Default
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',  # Fallback
+]
+
+
+# URL for admin
+ADMIN_URL = 'tm-admin-portal/'

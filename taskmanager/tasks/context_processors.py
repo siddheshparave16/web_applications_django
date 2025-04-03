@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group
 from django.core.cache import cache
 
-
 def feature_flags(request):
     user = request.user
 
@@ -22,8 +21,11 @@ def feature_flags(request):
     user = request.user
 
     flags = {
-        "is_priority_feature_enabled": False
+        "is_priority_feature_enabled": False    # default value
     }
+
+    # Initialize the variable with a default value
+    is_priority_feature = False
 
     # ensure the user is authenticated before checking groups
     if user.is_authenticated:

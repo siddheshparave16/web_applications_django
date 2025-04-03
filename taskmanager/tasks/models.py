@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q, F
 from datetime import timedelta
 from django.utils import timezone
+from django.conf import settings
 
 
 
@@ -13,7 +14,7 @@ class Epic(models.Model):
     description = models.TextField( blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)        # Set once, at creation
     updated_at = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, related_name='created_epics', on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_epics', on_delete=models.CASCADE)
     sprints = models.ManyToManyField('Sprint', related_name='epics')  # Fix: String reference for Sprint
 
 
@@ -47,8 +48,8 @@ class Task( VersionMixing, models.Model):
     created_at = models.DateTimeField(auto_now_add=True)        # Set once, at creation
     updated_at = models.DateTimeField(auto_now=True)            # Updated every save
     due_date = models.DateField(null=True, blank=True)
-    creator = models.ForeignKey(User, related_name='created_tasks', on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, related_name='owned_tasks', on_delete= models.SET_NULL, 
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_tasks', on_delete=models.CASCADE, null= False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='owned_tasks', on_delete= models.SET_NULL, 
                               null=True, blank=True, db_comment="Foreign key to the User who currently owns the task")
     
     epic = models.ForeignKey(Epic, on_delete=models.SET_NULL, null=True, blank=True)
@@ -84,6 +85,10 @@ class Task( VersionMixing, models.Model):
             models.CheckConstraint(check= models.Q(due_date__gte= F('created_at')), name='due_date_after_created_date'),
         ]
 
+        permissions = [
+            ("custom_task", "Custom Task Permission"),
+        ]
+
 
 
 # Model for Sprint
@@ -95,7 +100,7 @@ class Sprint(models.Model):
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)        # Set once, at creation
     updated_at = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, related_name='created_sprints', on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_sprints', on_delete=models.CASCADE)
     tasks = models.ManyToManyField(Task, related_name='sprints', blank=True)
 
 

@@ -27,10 +27,30 @@
         </div>
 
         <!-- Right side -->
-        <div class="d-flex mb-2" style="margin-right: 20px;">
-            <input type="text" class="form-control" id="search" placeholder="search" style="margin-right: 10px; width: 400px; height: 50px;">
-            <button type="button" class="btn btn-success ml-2" style="width: 120px; height: 50px;">Search</button>
+        <div class="d-flex mb-2" style="margin-left: 500px;">
+            <input type="text" class="form-control" id="search" placeholder="search" style="margin-right: 10px; width: 250px; height: 40px;">
+            <button type="button" class="btn btn-success ml-2" style="width: 120px; height: 40px;">Search</button>
         </div>
+
+        <!-- Login/Logout links -->
+
+        <!-- Check if the user is authenticated -->
+        {% if user.is_authenticated %}
+            <!-- Logout form: Uses a POST method for security as logout actions are sensitive -->
+            <form method="post" action="{% url 'accounts:logout' %}">
+                <!-- CSRF token for securing the form against cross-site request forgery attacks -->
+                {% csrf_token %}
+                <!-- Button for logging out an authenticated user -->
+                <button type="submit" class="btn btn-danger ml-2" style="width: 120px; height: 40px; margin-right: 10px;">Logout</button>
+            </form>
+        {% else %}
+            <!-- Login link: Redirects unauthenticated users to the login page -->
+            <a href="{% url 'accounts:login' %}" class="btn btn-info ml-2" style="width: 120px; height: 40px;" role="button">LogIn</a>
+            <!-- Button for logging in an unauthenticated user -->
+
+        {% endif %}
+        
+
     </div>
 
 </header>   

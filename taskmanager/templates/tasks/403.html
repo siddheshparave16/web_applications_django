@@ -1,0 +1,23 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<!-- Flex container for vertical and horizontal centering -->
+<div class="d-flex justify-content-center align-items-center vh-90">
+    <div class="text-center">
+        <!-- Heading with increased spacing -->
+        <h1 class="mb-5 text-danger">403 Forbidden</h1>
+        
+        <!-- Card Container with Gray Border -->
+        <div class="card" style="width: 500px; border: 2px solid gray; border-radius: 8px; padding: 20px;">
+            < class="mb-4">
+                We're sorry, but the page you were looking for (<strong>{{ requested_url }}</strong>) doesn't exist.
+            </p>
+
+            <!-- Return to Home Button -->
+            <a href="{% url 'tasks:home' %}" class="btn btn-primary btn-sm w-100">Return to the Homepage</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

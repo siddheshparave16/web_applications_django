@@ -22,7 +22,22 @@ services:
       - redis_data:/data
     networks:
       - my-network
+  
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025" # SMTP server
+      - "8025:8025" # Web UI
+    networks:
+      - my-network
+
 
 volumes:
   postgres-data:
   redis_data:
+
+networks:
+  my-network:
+    driver: bridge
+

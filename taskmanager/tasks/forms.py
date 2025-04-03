@@ -1,32 +1,36 @@
 from django import forms
 from tasks.models import Task, SubscribedEmail, Formsubmission, Sprint
 from tasks.fields import EmailsListField
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory, BaseModelFormSet
 from uuid import uuid4
 from django.db import IntegrityError, transaction
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
+from django import forms
+from django.db import transaction
+from django.core.exceptions import ValidationError
+from uuid import uuid4
+from .models import Task, Formsubmission, SubscribedEmail
 
 
-# this form is associated with Model Task
+
 class TaskForm(forms.ModelForm):
     uuid = forms.UUIDField(required=False, widget=forms.HiddenInput())
     watchers = EmailsListField(required=False)
     
     class Meta:
-        model = Task                            # model attribute specifies which django model the form is linked to
-        fields = ['title', 'description', 'status', 'watchers', 'file_upload', 'image_upload']         # list of model fields want to include in form for display and validate
-
+        model = Task
+        fields = ['title', 'description', 'status', 'watchers', 'file_upload', 'image_upload']
+        exclude = ['creator']  # Exclude the creator field from the form
 
     def __init__(self, *args, **kwargs):
-
         super(TaskForm, self).__init__(*args, **kwargs)
 
-        # check if an Instance is provided and populate watchers field
+        # Check if an instance is provided and populate watchers field
         if self.instance and self.instance.pk:
             self.fields['watchers'].initial = ', '.join(email.email for email in self.instance.watchers.all()) 
         
-        # initialize new uuid for form creation
+        # Initialize new UUID for form creation
         self.fields['uuid'].initial = uuid4()
 
     def clean_uuid(self):
@@ -34,30 +38,30 @@ class TaskForm(forms.ModelForm):
 
         with transaction.atomic():
             try:
-                # try to record the form submission by uuid
+                # Try to record the form submission by UUID
                 Formsubmission.objects.create(uuid=uuid_value)
             except IntegrityError:
-                # the uuid already exist, so the form was already submitted
-                raise ValidationError("This form has already been submited")
+                # The UUID already exists, so the form was already submitted
+                raise ValidationError("This form has already been submitted")
         
         return uuid_value
     
-    def save(self, commit = True):
+    def save(self, commit=True):
         # First, save the Task instance
         task = super().save(commit)
 
-        # if commite is True, save the associated emails
+        # If commit is True, save the associated emails
         if commit:
             # First, remove old emails associated with the task
             task.watchers.all().delete()
 
-        # Add the new emails to the Email Model
-        for email_str in self.cleaned_data["watchers"]:
-            SubscribedEmail.objects.create(email=email_str, task=task)
+            # Add the new emails to the Email Model
+            for email_str in self.cleaned_data["watchers"]:
+                SubscribedEmail.objects.create(email=email_str, task=task)
     
         return task
-
-
+    
+    
 """
 # TaskForm using Redis
 
@@ -119,7 +123,7 @@ class SprintForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         # extract the user object
-        self.request = kwargs.pop('request', None)
+        self.request = kwargs.pop('request', None)      # Extract request
         super().__init__(*args, **kwargs)
 
         # Ensure dates are properly formatted for the initial data
@@ -137,7 +141,7 @@ class SprintForm(forms.ModelForm):
         if not name:
             raise forms.ValidationError('Name is required.')
         
-        if self.request and self.request.user.is_authenticated:
+        if not self.request or not self.request.user.is_authenticated:
             raise forms.ValidationError('You must be logged in to create a sprint.')
 
         return cleaned_data
@@ -156,6 +160,18 @@ class SprintForm(forms.ModelForm):
         return sprint
 
 
+class BaseSprintFormSet(BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)  # Extract request
+        super().__init__(*args, **kwargs)
+
+    def _construct_form(self, i, **kwargs):
+        """Pass request to each form inside the formset"""
+        kwargs['request'] = self.request  # Pass request to each form
+        return super()._construct_form(i, **kwargs)
+    
+
+
 # ModelFormSet for Sprints
-SprintFormSet = modelformset_factory(Sprint, form=SprintForm, extra=0)
+SprintFormSet = modelformset_factory(Sprint, form=SprintForm,formset=BaseSprintFormSet, extra=0)
  
