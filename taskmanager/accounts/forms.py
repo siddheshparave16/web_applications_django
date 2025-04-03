@@ -60,8 +60,6 @@ class CustomUserCreationForm(UserCreationForm):
         username = cleaned_data.get('username')
         organization = cleaned_data.get('organization')
 
-        print("DEBUG: cleaned_data inside clean() =", cleaned_data)  # Debugging
-
         if not username:
             self.add_error('username', "Username is required.")
 
