@@ -1,0 +1,95 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>Your API Token</h3>
+                </div>
+
+                <div class="card-body text-center">
+                    {% if token %}
+                        <div class="token-box">
+                            <div class="token-container">
+                                <label>Your Token:</label>
+                                <code class="token-text">{{ token }}</code>
+                                <button class="copy-btn" onclick="copyToken(this)">Copy</button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="token-box no-token">
+                            No Token Available.
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card-body text-center">
+                    {% if jwt_token %}
+                        <div class="token-box">
+                            <div class="token-container">
+                                <label>Your JWT Token:</label>
+                                <code class="token-text">{{ jwt_token }}</code>
+                                <button class="copy-btn" onclick="copyToken(this)">Copy</button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="token-box no-token">
+                            No JWT-Token Available.
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body text-center">
+                    {% if refresh_token %}
+                        <div class="token-box">
+                            <div class="token-container">
+                                <label>Your JWT REFRESH Token:</label>
+                                <code class="token-text">{{ refresh_token }}</code>
+                                <button class="copy-btn" onclick="copyToken(this)">Copy</button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="token-box no-token">
+                            No REFRESH-Token Available.
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+    function copyToken(button) {
+        const tokenElement = button.previousElementSibling;
+        const token = tokenElement.textContent;
+
+        navigator.clipboard?.writeText(token).then(() => {
+            button.textContent = "Copied!";
+            setTimeout(() => button.textContent = "Copy", 1000);
+        }).catch(() => {
+            // Fallback for unsupported browsers
+            const textarea = document.createElement("textarea");
+            textarea.value = token;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            button.textContent = "Copied!";
+            setTimeout(() => button.textContent = "Copy", 1000);
+        });
+    }
+</script>
+{% endblock %}

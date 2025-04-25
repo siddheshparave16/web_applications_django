@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=m@9kt-z@8wvqo8a#8d#x4-rjw)!kw=s*9*9_$5*ocln9q1tw)'
+SECRET_KEY = "django-insecure-=m@9kt-z@8wvqo8a#8d#x4-rjw)!kw=s*9*9_$5*ocln9q1tw)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,50 +32,48 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    # manually installed apps 
-    'django_extensions',
-    'debug_toolbar',
-    'tasks',
-    'storages',
-    'widget_tweaks',
-    'accounts',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # manually installed apps
+    "django_extensions",
+    "debug_toolbar",
+    "tasks",
+    "storages",
+    "widget_tweaks",
+    "accounts",
 ]
 
 MIDDLEWARE = [
-    "tasks.middlewares.RequestTimeMiddleware",                  # Custom middleware
-    'django.middleware.security.SecurityMiddleware',
-    'csp.middleware.CSPMiddleware',                             # CSP Middleware (Add it here)
-    'debug_toolbar.middleware.DebugToolbarMiddleware',          # Debug toolbar
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    "tasks.middlewares.RequestTimeMiddleware",  # Custom middleware
+    "django.middleware.security.SecurityMiddleware",
+    "csp.middleware.CSPMiddleware",  # CSP Middleware (Add it here)
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Debug toolbar
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'taskmanager.urls'
+ROOT_URLCONF = "taskmanager.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'tasks.context_processors.feature_flags',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "tasks.context_processors.feature_flags",
             ],
         },
     },
@@ -89,20 +87,20 @@ TEMPLATE_PARTS = {
 }
 
 
-WSGI_APPLICATION = 'taskmanager.wsgi.application'
+WSGI_APPLICATION = "taskmanager.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'task_manager',
-        'USER': 'postgres',
-        'PASSWORD': 'siddhesh',
-        'HOST': '127.0.0.1',  # Use localhost or 127.0.0.1 when running outside Docker
-        'PORT': '5432',       # Port exposed by Docker
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "task_manager",
+        "USER": "postgres",
+        "PASSWORD": "siddhesh",
+        "HOST": "127.0.0.1",  # Use localhost or 127.0.0.1 when running outside Docker
+        "PORT": "5432",  # Port exposed by Docker
     }
 }
 
@@ -112,16 +110,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -129,9 +127,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -141,9 +139,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # For `collectstatic` command in production
+STATIC_ROOT = os.path.join(
+    BASE_DIR, "staticfiles"
+)  # For `collectstatic` command in production
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "tasks/static"),  # Correct path to the static directory
@@ -153,10 +153,10 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INTERNAL_IPS = [
-    '127.0.0.1',  # Add your local IP here
+    "127.0.0.1",  # Add your local IP here
 ]
 
 # new storage
@@ -176,17 +176,17 @@ INTERNAL_IPS = [
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = os.getenv("EMAIL_HOST", "mailhog")
     EMAIL_PORT = int(os.getenv("EMAIL_PORT", "1025"))
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "default@email.com")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "default@example.com")
     EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False") == "True"
-    
+
 
 # Media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = "/media/"
 
 """
 CACHES = {
@@ -220,21 +220,35 @@ AUTHENTICATION_BACKEND = [
 # CSRF_COOKIE_SECURE = False
 
 
+# if not DEBUG:
+#     SECURE_HSTS_SECONDS = 31536000  # 1 year
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
 
-# if not DEBUG:  
-#     SECURE_HSTS_SECONDS = 31536000  # 1 year  
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True  
-#     SECURE_HSTS_PRELOAD = True  
 
+# Content Security Policy (CSP) Settings
+CSP_DEFAULT_SRC = ("'self'",)  # Allow content only from our own domain
 
-# Content Security Policy (CSP) Settings  
-CSP_DEFAULT_SRC = ("'self'",)  # Allow content only from our own domain  
+CSP_STYLE_SRC = (
+    "'self'",
+    "https://cdn.jsdelivr.net",
+    "https://code.jquery.com",
+    "'unsafe-inline'",
+)  # Allow external styles
 
-CSP_STYLE_SRC = ("'self'", "https://cdn.jsdelivr.net", "https://code.jquery.com", "'unsafe-inline'")  # Allow external styles  
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "https://cdn.jsdelivr.net",
+    "https://code.jquery.com",
+    "'unsafe-inline'",
+)  # Allow external scripts
 
-CSP_SCRIPT_SRC = ("'self'", "https://cdn.jsdelivr.net", "https://code.jquery.com", "'unsafe-inline'")  # Allow external scripts  
-
-CSP_IMG_SRC = ("'self'", "data:", "https://your-cdn.com", "https://example.com")  # Allow images from our domain & external sources  
+CSP_IMG_SRC = (
+    "'self'",
+    "data:",
+    "https://your-cdn.com",
+    "https://example.com",
+)  # Allow images from our domain & external sources
 
 
 # Prevents browsers from MIME-type sniffing, enforcing declared Content-Type
@@ -247,10 +261,20 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 # Use Argon2 for stronger security, with PBKDF2 as a fallback.
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.Argon2PasswordHasher',  # Default
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',  # Fallback
+    "django.contrib.auth.hashers.Argon2PasswordHasher",  # Default
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",  # Fallback
 ]
 
 
 # URL for admin
-ADMIN_URL = 'tm-admin-portal/'
+ADMIN_URL = "tm-admin-portal/"
+
+
+# Default number of items per page for paginated API responses.
+# This value applies globally to all endpoints unless overridden by a custom pagination class.
+# NINJA_PAGINATION_PER_PAGE = 5
+
+NINJA_PAGINATION_CLASS = "tasks.pagination.CustomTaskManagerPagination"
+
+JWT_SECRET_KEY = os.getenv("JWT_SECRETE_KEY", "jwt_secret")
+JWT_REFRESH_SECRET_KEY = os.getenv("JWT_REFRESH_SECRET_KEY", "jwt_refresh_secret")

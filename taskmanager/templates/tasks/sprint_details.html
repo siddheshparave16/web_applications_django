@@ -16,6 +16,7 @@
 
         <div class="mt-4 d-inline-block">
             <a href="{% url 'tasks:sprint-update' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
+            <a href = "{% url 'tasks:sprint-delete' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Delete</a>
             <a href="{% url 'tasks:sprint-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Sprint List</a>
         </div>
     </div>

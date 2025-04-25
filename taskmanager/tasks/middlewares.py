@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class RequestTimeMiddleware:
 
     def __init__(self, get_responce):

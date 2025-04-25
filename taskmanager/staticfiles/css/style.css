@@ -1,3 +1,4 @@
+
 /* Footer Styles */
 footer {
     text-align: center;
@@ -99,3 +100,16 @@ body {
     flex: 1;
     padding: 10px;
 }
+
+
+.username-box {
+    border: 2px solid #83b4e4; /* Default border */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.username-box:hover,
+.username-box:focus-within {
+    border-color: #007bff; /* Change border color on hover/focus */
+    box-shadow: 0 0 10px #007bff; /* Glowing effect */
+}
+

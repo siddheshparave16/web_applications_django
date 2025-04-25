@@ -1,17 +1,14 @@
 {% extends "tasks/base.html" %}
 
 {% block content %}
-    <h1>Task List</h1>
-    <ul>   
-    {% for task in tasks %}
-        <li>
-            <a href="{% url 'tasks:task-detail' task.id %}"> {{ task.title }}</a>
-        </li>
-    {% empty %}
-        <li>No tasks are available.</li>
-    {% endfor %}
-    </ul>
-
-
-{% endblock  %}
-
+    <div class="task-list-container">
+        <h1 class="task-list-heading">Task List</h1>
+        {% for task in tasks %}
+            <div class="task-item">
+                <a href="{% url 'tasks:task-detail' task.id %}">{{ task.title }}</a>
+            </div>
+        {% empty %}
+            <div class="task-item no-task">No tasks are available.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -14,31 +14,31 @@
         <div class="row">
 
             {% for form in formset %}      
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-body">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
 
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label for="{field.id_for_field}" class="form-label">
-                                    {{field.label}}
-                                </label>
-                            </div>
-                            {{field|add_class:"form-control"}}
-
-                            {% if field.errors %}
-                                <div class="alert alert-danger mt-2">
-                                    {% for error in field.errors %}
-                                        <p class="mb-0">{{error}}</p>
-                                    {% endfor %}
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label for="{field.id_for_field}" class="form-label">
+                                        {{field.label}}
+                                    </label>
                                 </div>
-                            {% endif %}
+                                {{field|add_class:"form-control"}}
 
-                        {% endfor %}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger mt-2">
+                                        {% for error in field.errors %}
+                                            <p class="mb-0">{{error}}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
 
+                            {% endfor %}
+
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
 
         </div>

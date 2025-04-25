@@ -1,56 +1,57 @@
 {% load static %}
-<header class="d-flex flex-column align-items-center p-3">
+<link rel="stylesheet" href="{% static 'tasks/css/header.css' %}">
 
-    <div style="width: 100%; text-align: center; border: 2px solid black; padding: 5px; position: relative; margin-bottom: 20px;">
-        <h5 style="margin: 0;">Task Manager</h5>
-        <div style="position: absolute; top: 10px; left: 10px;">
-            <div style="width: 20px; height: 20px; background-color: red; border-radius: 50%; display: inline-block; margin-right: 5px;"></div>
-            <div style="width: 20px; height: 20px; background-color: yellow; border-radius: 50%; display: inline-block; margin-right: 5px;"></div>
-            <div style="width: 20px; height: 20px; background-color: green; border-radius: 50%; display: inline-block;"></div>
+<header class="header-container">
+
+    <div class="header-title-bar">
+        <h5 class="header-title">Task Manager</h5>
+        <div class="header-control-buttons">
+            <div class="red-circle"></div>
+            <div class="yellow-circle"></div>
+            <div class="green-circle"></div>
         </div>
     </div>
 
-    <div class="d-flex justify-content-between w-100 flex-wrap">
+    <div class="header-content">
         <!-- Left side -->
-         <div class="mb-2" style="margin-left: 20px;">
-
+        <div class="header-left">
             <!-- Logo -->
-            <img src="{% static 'images/logo.png' %}" alt="Task Manager" class="mr-3" style="width: 140px; height: 60px;"> 
+            <img src="{% static 'images/logo.png' %}" alt="Task Manager" class="header-logo"> 
 
-            <a href="{% url 'tasks:home' %}" class="btn btn-primary" style="width: 120px; height: 40px; display: inline-flex; align-items: center; justify-content: center;">
+            <a href="{% url 'tasks:home' %}" class="home-button">
                 Home
             </a>
-
-            <a href="{% url 'tasks:task-create' %}" type="button" class="btn btn-primary " style="width: 120px; height: 40px; margin-left: 10px;">
-                Create
-            </a>
+            
+            <div class="dropdown">
+                <button class="create-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Create
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'tasks:task-create' %}">Add New Task</a></li>
+                    <li><a class="dropdown-item" href="{% url 'tasks:sprint-create' %}">Add New Sprint</a></li>
+                    <li><a class="dropdown-item" href="{% url 'tasks:epic-create' %}">Add New Epic</a></li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Right side -->
-        <div class="d-flex mb-2" style="margin-left: 500px;">
-            <input type="text" class="form-control" id="search" placeholder="search" style="margin-right: 10px; width: 250px; height: 40px;">
-            <button type="button" class="btn btn-success ml-2" style="width: 120px; height: 40px;">Search</button>
+        <!-- Middle - Search -->
+        <div class="search-bar-container">
+            <input type="text" class="search-input" id="search" placeholder="Search">
+            <button type="button" class="search-button">Go</button>
         </div>
 
-        <!-- Login/Logout links -->
-
-        <!-- Check if the user is authenticated -->
-        {% if user.is_authenticated %}
-            <!-- Logout form: Uses a POST method for security as logout actions are sensitive -->
-            <form method="post" action="{% url 'accounts:logout' %}">
-                <!-- CSRF token for securing the form against cross-site request forgery attacks -->
-                {% csrf_token %}
-                <!-- Button for logging out an authenticated user -->
-                <button type="submit" class="btn btn-danger ml-2" style="width: 120px; height: 40px; margin-right: 10px;">Logout</button>
-            </form>
-        {% else %}
-            <!-- Login link: Redirects unauthenticated users to the login page -->
-            <a href="{% url 'accounts:login' %}" class="btn btn-info ml-2" style="width: 120px; height: 40px;" role="button">LogIn</a>
-            <!-- Button for logging in an unauthenticated user -->
-
-        {% endif %}
-        
-
+        <!-- Right side - Auth -->
+        <div class="header-right">
+            {% if user.is_authenticated %}
+                <!-- Username and Logout Button -->
+                <div class="username-box">
+                    <span class="username-text">Welcome {{ user.username|truncatechars:10 }}</span>
+                    <button type="submit" class="logout-button">Logout</button>
+                </div>
+            {% else %}
+                <!-- Login link -->
+                <a href="{% url 'accounts:login' %}" class="login-button">LogIn</a>
+            {% endif %}
+        </div>
     </div>
-
-</header>   
+</header>

@@ -4,6 +4,7 @@ from django.core.validators import EmailValidator
 
 email_validator = EmailValidator(message="one or more email addresses are not valid.")
 
+
 class EmailsListField(forms.CharField):
     def to_python(self, value):
         "Normalize data to list of strings."
@@ -12,9 +13,9 @@ class EmailsListField(forms.CharField):
             return []
         else:
             # separate email values and remove whitespace
-            return [email.strip() for email in value.split(',')]
-    
-    # validate email 
+            return [email.strip() for email in value.split(",")]
+
+    # validate email
     def validate(self, value):
         # check if consist only valid emails
         super().validate(value)
@@ -34,7 +35,7 @@ class PhoneNumberField(forms.IntegerField):
 
         if not value:
             return None
-        
+
         value = str(value).strip()
 
         try:
@@ -43,7 +44,6 @@ class PhoneNumberField(forms.IntegerField):
         except ValueError:
             raise forms.ValidationError("Phone number should consist only of digits.")
 
-    
     def validate(self, value):
         """
         validate value is a valid phone number
@@ -51,11 +51,10 @@ class PhoneNumberField(forms.IntegerField):
           - Ensure that number is 10 digit long
         """
 
-        super().validate(value)         # Perform default validation
-        
+        super().validate(value)  # Perform default validation
+
         if value < 0:
             raise forms.ValidationError("Phone number cannot be negative.")
 
         if len(str(value)) != 10:
             raise forms.ValidationError("Phone number must be exactly 10 digits long.")
-        

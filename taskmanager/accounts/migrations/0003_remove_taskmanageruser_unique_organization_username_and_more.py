@@ -6,30 +6,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0002_alter_organization_name'),
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("accounts", "0002_alter_organization_name"),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='taskmanageruser',
-            name='unique_organization_username',
+            model_name="taskmanageruser",
+            name="unique_organization_username",
         ),
         migrations.RemoveConstraint(
-            model_name='taskmanageruser',
-            name='unique_organization_email',
+            model_name="taskmanageruser",
+            name="unique_organization_email",
         ),
         migrations.AlterField(
-            model_name='taskmanageruser',
-            name='email',
+            model_name="taskmanageruser",
+            name="email",
             field=models.EmailField(max_length=254),
         ),
         migrations.AddConstraint(
-            model_name='taskmanageruser',
-            constraint=models.UniqueConstraint(fields=('organization', 'username'), name='unique_username_per_organization'),
+            model_name="taskmanageruser",
+            constraint=models.UniqueConstraint(
+                fields=("organization", "username"),
+                name="unique_username_per_organization",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='taskmanageruser',
-            constraint=models.UniqueConstraint(fields=('organization', 'email'), name='unique_email_per_organization'),
+            model_name="taskmanageruser",
+            constraint=models.UniqueConstraint(
+                fields=("organization", "email"), name="unique_email_per_organization"
+            ),
         ),
     ]

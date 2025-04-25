@@ -1,20 +1,102 @@
-{% extends "tasks/base.html"%}
+{% extends "tasks/base.html" %}
 
 {% block content %}
-
     <div class="container mt-4">
-        <div class="card">
-            <div class="card-headeer">
-                Help Page
+        <!-- Introduction Section -->
+        <div class="text-center bg-light p-5 rounded mb-4">
+            <h1 class="display-5 fw-bold">Welcome to the Task Manager Help Center</h1>
+            <p class="fs-5">
+                Your go-to resource for learning about Task Manager features, tips, and solutions. 
+                Explore below to find what you need, or reach out to our support team for personalized help.
+            </p>
+            <a href="" class="btn btn-primary btn-lg mt-3">Contact Support</a>
+        </div>
+
+        <!-- Help Topics Section -->
+        <div class="row gy-4">
+            <!-- What is Task Manager -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Task Manager">
+                    <div class="card-body">
+                        <h5 class="card-title">What is Task Manager?</h5>
+                        <p class="card-text">
+                            Task Manager is software designed to help you organize, prioritize, and track tasks efficiently.
+                        </p>
+                        <a href="" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">What is task manager?</h5>
-                <p class="card-text">
-                    A task manager system is software that helps users organize and track the progress of tasks.
-                    <a href="{% url 'tasks:home' %}" class="btn btn-primary">Go Home</a>
-                </p>
+
+            <!-- Getting Started -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Getting Started">
+                    <div class="card-body">
+                        <h5 class="card-title">Getting Started</h5>
+                        <p class="card-text">
+                            Learn how to create tasks, manage deadlines, and collaborate with your team effectively.
+                        </p>
+                        <a href="" class="btn btn-success">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Tasks">
+                    <div class="card-body">
+                        <h5 class="card-title">Tasks</h5>
+                        <p class="card-text">
+                            Create and manage tasks effortlessly. Assign tasks to team members, set deadlines, and track their progress.
+                        </p>
+                        <a href="" class="btn btn-primary">Learn More about Tasks</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprints -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Sprints">
+                    <div class="card-body">
+                        <h5 class="card-title">Sprints</h5>
+                        <p class="card-text">
+                            Plan and execute sprints with ease. Monitor sprint progress and ensure timely delivery of milestones.
+                        </p>
+                        <a href="" class="btn btn-success">Learn More about Sprints</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Epics -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Epics">
+                    <div class="card-body">
+                        <h5 class="card-title">Epics</h5>
+                        <p class="card-text">
+                            Organize your work at a higher level with epics. Group related tasks and sprints under a common goal.
+                        </p>
+                        <a href="" class="btn btn-warning">Learn More about Epics</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts -->
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <img src="" class="card-img-top" alt="Contacts">
+                    <div class="card-body">
+                        <h5 class="card-title">Contacts</h5>
+                        <p class="card-text">
+                            Connect with your team and stakeholders. Manage contact information and keep everyone in sync.
+                        </p>
+                        <a href="" class="btn btn-danger">Learn More about Contacts</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
