@@ -173,19 +173,29 @@
     cursor: pointer;
 }
 
-/* Middle - Search Bar */
+/* Container for the search bar */
 .search-bar-container {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Center the search bar horizontally */
+    gap: 10px; /* Space between input and button */
     flex-grow: 1;
-    max-width: 300px;
-    min-width: 200px;
+    max-width: 300px; /* Maximum width of the search bar */
+    min-width: 200px; /* Minimum width of the search bar */
 }
 
+/* Form element styling */
+.search-bar-container form {
+    display: flex;
+    align-items: center; /* Align input and button vertically */
+    gap: 10px; /* Space between input and button */
+    width: 100%; /* Take full width of the container */
+}
+
+/* Styling for the input field */
 .search-input {
     height: 40px;
-    width: 100%;
+    flex-grow: 1; /* Allow the input to stretch and fill available space */
     border: 1px solid #6a11cb;
     border-radius: 5px;
     padding: 0 10px;
@@ -193,14 +203,15 @@
     transition: all 0.3s ease-in-out;
 }
 
+/* Focus state for the input field */
 .search-input:focus {
     outline: none;
     border-color: #2575fc;
     box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
 }
 
+/* Styling for the button */
 .search-button {
-    width: 80px;
     height: 40px;
     text-align: center;
     border-radius: 5px;
@@ -209,9 +220,12 @@
     font-size: 14px;
     font-weight: 600;
     border: none;
+    padding: 0 15px;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
+/* Hover state for the button */
 .search-button:hover {
     background: linear-gradient(90deg, #2575fc, #6a11cb);
     box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
@@ -250,13 +264,37 @@
     line-height: 40px;
 }
 
+
+/* Login Button Styling */
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #6a11cb, #38ef7d); /* Purple to Green Gradient */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4); /* Purple Shadow */
+}
+
+/* Hover Effect for Login Button */
+.login-button:hover {
+    background: linear-gradient(90deg, #38ef7d, #6a11cb); /* Reverse Gradient (Green to Purple) */
+    box-shadow: 0 8px 20px rgba(56, 239, 125, 0.6); /* Green Shadow on Hover */
+    transform: translateY(-3px);
+}
+
+
 /* Logout Button */
 .logout-button {
     width: 80px;
     height: 30px;
     text-align: center;
     border-radius: 5px;
-    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Gradient background */
+    background: linear-gradient(90deg, #ff416c, #f52906); /* Red gradient background */
     color: white;
     font-size: 14px;
     font-weight: 600;
@@ -266,8 +304,8 @@
 }
 
 .logout-button:hover {
-    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverse gradient */
-    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Glow effect */
+    background: linear-gradient(90deg, #f52906, #ff416c); /* Reverse red gradient */
+    box-shadow: 0 5px 15px rgba(255, 75, 43, 0.5); /* Red glow effect */
     transform: translateY(-3px);
 }
 
