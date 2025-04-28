@@ -46,7 +46,10 @@
                 <!-- Username and Logout Button -->
                 <div class="username-box">
                     <span class="username-text">Welcome {{ user.username|truncatechars:10 }}</span>
-                    <button type="submit" class="logout-button">Logout</button>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
                 </div>
             {% else %}
                 <!-- Login link -->
