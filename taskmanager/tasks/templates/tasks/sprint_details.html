@@ -3,10 +3,11 @@
 {% block content %}
 
 <h1> Sprint Details <h1>
-
-<p> Sprint Name: {{sprint.name}} </p>
+<h2> {{sprint.name}} </h2>
 <p> Sprint Description: {{sprint.name}} </p>
 <p> Start_date: {{sprint.name}} </p>
 <p> End_date: {{sprint.name}} </p>
+
+<a href="{% url 'tasks:sprint-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Sprint List</a>
 
 {% endblock  %}

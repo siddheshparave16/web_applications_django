@@ -32,11 +32,18 @@ class Task( VersionMixing, models.Model):
         ('ARCHIVED', 'Archived')
     ]
 
+    PRIORITY_CHOICES = [
+        ('HIGH', 'High'),
+        ('MEDIUM', 'Medium'),
+        ('LOW', 'Low')
+    ]
+
     title = models.CharField(max_length=200)
     description = models.TextField( blank=True, null=False, default='')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, 
                               default='UNASSIGNED', db_comment="Can be Assigned, In Progress, Done, or Archived")
     
+    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='LOW', db_comment='Can be High, Medium, Low')
     created_at = models.DateTimeField(auto_now_add=True)        # Set once, at creation
     updated_at = models.DateTimeField(auto_now=True)            # Updated every save
     due_date = models.DateField(null=True, blank=True)

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'tasks',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -70,10 +71,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'tasks.context_processors.feature_flags',
             ],
         },
     },
 ]
+
+
+# Custom Settings
+TEMPLATE_PARTS = {
+    "header": "tasks/_header.html",
+    "footer": "tasks/_footer.html",
+}
+
 
 WSGI_APPLICATION = 'taskmanager.wsgi.application'
 
@@ -127,14 +137,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "tasks", "static"),  # Correct path to the static directory
-]
-
+STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # For `collectstatic` command in production
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "tasks/static"),  # Correct path to the static directory
+]
 
 
 # Default primary key field type
@@ -145,3 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',  # Add your local IP here
 ]
+
+# new storage
+# STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
+
+# AWS_S3_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
+# AWS_S3_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
