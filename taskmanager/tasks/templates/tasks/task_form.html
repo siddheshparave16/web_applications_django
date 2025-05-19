@@ -1,0 +1,16 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+    <h1>New Task</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <a href="{% url 'tasks:task-list' task.id %}" class="btn btn-secondary">Cancel Update</a>
+
+
+{% endblock %}

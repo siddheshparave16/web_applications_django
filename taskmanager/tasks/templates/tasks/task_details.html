@@ -1,0 +1,14 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<h1>Task Details</h1>
+<h2>{{ task.title }}</h2>
+<p>{{ task.description }}</p>
+<p>Created Date: {{ task.created_at }}</p>
+<p>Due Date: {{ task.due_date }}</p>
+<a href="{% url 'tasks:task-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Task List</a>
+<a href="{% url 'tasks:task-update' task.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Edit</a>
+<a href = "{% url 'tasks:task-delete' task.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Delete</a>
+
+{% endblock  %}
