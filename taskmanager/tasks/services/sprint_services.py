@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from tasks.models import Sprint, Epic
+from tasks.models import Sprint, Epic, Task
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from datetime import datetime
@@ -68,3 +68,17 @@ def set_sprint_epic(sprint_id: int, epic_id: int) -> dict:
         epic.save()                     # Save changes to ensure consistency
 
         return {"success": True, "message": f"Sprint '{sprint.name}' successfully added to Epic '{epic.name}'."}
+
+
+# services for Sprint formset - Sprints related to task
+
+def get_task_by_id(task_pk: Task)-> Task|None:
+    return Task.objects.filter(pk=task_pk).first()
+
+def get_sprint_by_task(task:Task)-> list[Task]:
+    return Sprint.objects.filter(tasks=task)
+
+def save_sprint_for_task(task:Task, sprints:list[Sprint]):
+    for sprint in sprints:
+        sprint.save()
+        sprint.tasks.add(task)

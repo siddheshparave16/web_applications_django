@@ -1,13 +1,23 @@
 {% extends "tasks/base.html" %}
 
 {% block content %}
+<h1 class="text-center" style="margin-bottom:-8rem;">Sprint Details</h1> <!-- Reduced margin -->
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+        <h2 class="mb-4" style="margin-bottom: 1rem;">{{ sprint.name }}</h2> <!-- Reduced margin -->
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Description</h2>
+                <p class="card-text">{{ sprint.description }}</p>
+                <p>Start Date: {{ sprint.start_date }}</p>
+                <p>End Date: {{ sprint.end_date }}</p>
+            </div>
+        </div>
 
-<h1> Sprint Details <h1>
-<h2> {{sprint.name}} </h2>
-<p> Sprint Description: {{sprint.name}} </p>
-<p> Start_date: {{sprint.name}} </p>
-<p> End_date: {{sprint.name}} </p>
-
-<a href="{% url 'tasks:sprint-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Sprint List</a>
-
-{% endblock  %}
+        <div class="mt-4 d-inline-block">
+            <a href="{% url 'tasks:sprint-update' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
+            <a href="{% url 'tasks:sprint-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Sprint List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
