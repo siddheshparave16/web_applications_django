@@ -23,10 +23,10 @@
             </a>
             
             <div class="dropdown">
-                <button class="create-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="create-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Create
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{% url 'tasks:task-create' %}">Add New Task</a></li>
                     <li><a class="dropdown-item" href="{% url 'tasks:sprint-create' %}">Add New Sprint</a></li>
                     <li><a class="dropdown-item" href="{% url 'tasks:epic-create' %}">Add New Epic</a></li>
@@ -36,17 +36,23 @@
 
         <!-- Middle - Search -->
         <div class="search-bar-container">
-            <input type="text" class="search-input" id="search" placeholder="Search">
-            <button type="button" class="search-button">Go</button>
+            <form method="GET" action="{% url 'tasks:home' %}">
+                <input type="text" class="search-input" name="query" id="search" placeholder="Search">
+                <button type="submit" class="search-button">Go</button>
+            </form>
         </div>
 
         <!-- Right side - Auth -->
         <div class="header-right">
             {% if user.is_authenticated %}
                 <!-- Username and Logout Button -->
+                
                 <div class="username-box">
                     <span class="username-text">Welcome {{ user.username|truncatechars:10 }}</span>
-                    <button type="submit" class="logout-button">Logout</button>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
                 </div>
             {% else %}
                 <!-- Login link -->
@@ -54,4 +60,16 @@
             {% endif %}
         </div>
     </div>
+
+    <!-- New Parallel Row -->
+    <div class="header-parallel-row">
+        <button class="feature-button" onclick="location.href='{% url 'tasks:task-list' %}' ">Task List</button>
+        <button class="feature-button" onclick="location.href='' ">Feature 2</button>
+        <button class="feature-button" onclick="location.href='' ">Feature 3</button>
+        <button class="feature-button" onclick="location.href='' ">Feature 3</button>
+        <button class="feature-button" onclick="location.href='{% url 'tasks:help' %}' ">Help</button>
+        <button class="feature-button" onclick="location.href='{% url  'tasks:contact' %}' ">Contact</button>
+        <button class="feature-button" onclick="location.href='{% url 'tasks:about' %}' ">About</button>
+    </div>
+
 </header>

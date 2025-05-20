@@ -1,14 +1,49 @@
 {% extends "tasks/base.html" %}
+{% block title %} Task List {% endblock %}
 
 {% block content %}
-    <div class="task-list-container">
-        <h1 class="task-list-heading">Task List</h1>
-        {% for task in tasks %}
-            <div class="task-item">
-                <a href="{% url 'tasks:task-detail' task.id %}">{{ task.title }}</a>
-            </div>
-        {% empty %}
-            <div class="task-item no-task">No tasks are available.</div>
-        {% endfor %}
-    </div>
+
+<div class="task-list-container">
+    <h1 class="task-list-heading">Task List</h1>
+
+    <!-- Filter Task Form -->
+    <form method="get" id="filter-form">
+        <select class="form-select" name="filter_task_by" onchange="submitFilterForm();">
+            <option value="all" {% if request.GET.filter_task_by != "by_created_date" and request.GET.filter_task_by != "by_name" %}selected{% endif %}>Filter Task</option>
+            <option value="by_created_date" {% if request.GET.filter_task_by == "by_created_date" %}selected{% endif %}>Order By Date</option>
+            <option value="by_name" {% if request.GET.filter_task_by == "by_name" %}selected{% endif %}>Order By Name</option>
+        </select>
+
+        <select class = "form-select" name="status" onchange="submitFilterForm();">
+            <option value="all" {% if not request.GET.status or request.GET.status == "all"  %}selected{% endif %}>All Status</option>
+            <option value="UNASSIGNED" {% if request.GET.status == "UNASSIGNED"%}selected{% endif %}>Unassigned Task</option>
+            <option value="IN_PROGRESS" {% if request.GET.status == "IN_PROGRESS"%}selected{% endif %}>In Progress Task</option>
+            <option value="DONE" {% if request.GET.status == "DONE" %}selected{% endif %}>Done Task </option>
+            <option value="ARCHIVED" {% if request.GET.status == "ARCHIVED"%}selected{% endif %}>Archived Task</option>
+        </select>
+
+    </form>
+
+    <!-- Task List -->
+    {% for task in tasks %}
+        <div class="task-item">
+            <a href="{% url 'tasks:task-detail' task.id %}">{{ task.title }}</a>
+            <p>Status: {{task.status}}</p>
+            <p>Created Date: {{task.created_at}}</p>
+        </div>
+    {% empty %}
+        <div class="task-item no-task">No tasks are available.</div>
+    {% endfor %}
+</div>
+
 {% endblock %}
+
+
+{% block extra_javascript %}
+<script>
+    // Function to submit the form on change of any dropdown
+    function submitFilterForm() {
+        document.getElementById('filter-form').submit();
+    }
+</script>
+{% endblock  %}

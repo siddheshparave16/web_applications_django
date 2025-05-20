@@ -1,14 +1,37 @@
 {% extends "tasks/base.html" %}
+{% block title %} Epic List {% endblock %}
 
 {% block content %}
-   <h1>Epic List</h1>
+<div class="epic-list-container">
+   <h1 class="epic-list-heading">Epic List</h1>
 
-   <ul>
+   <!-- Filter Epic Form -->
+   <form method="get" id="epic-filter-form">
+      <select class="form-select" name="filter_epic_by" onchange="submitEpicFilterForm();">
+         <option value="all" {% if request.GET.filter_epic_by != "by_created_date" and request.GET.filter_epic_by != "by_name" %} selected {% endif %}>All Epics</option>
+         <option value="by_created_date" {% if request.GET.filter_epic_by == "by_created_date" %} selected {% endif %}>By Created Date</option>
+         <option value="by_name" {% if request.GET.filter_epic_by == "by_name" %} selected {% endif %}>By Name</option>
+      </select>
+
+   </form>
+
+   
    {% for epic in epics %}
-      <li>
+      <div class="epic-item">
          <a href="{% url 'tasks:epic-detail' epic.id %}">{{epic.name}}</a>
-      </li>
+         <p>Created Date: {{epic.created_at}}</p>
+      </div>
+   {% empty %}
+      <div class="epic-item no-epic">No Epic are available.</div>
    {% endfor %}
-   <ul>
+<div>
+{% endblock  %}
+
+{% block extra_javascript %}
+<script>
+   function submitEpicFilterForm(){
+      document.getElementById("epic-filter-form").submit();
+   }
+</script>
 {% endblock  %}
 

@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Task, SubscribedEmail, Formsubmission, Sprint, Epic
+from tasks.models import Task, SubscribedEmail, Formsubmission, Sprint, Epic, Comment
 from tasks.fields import EmailsListField
 from django.forms import modelformset_factory, BaseModelFormSet
 from uuid import uuid4
@@ -195,3 +195,8 @@ class EpicForm(forms.ModelForm):
         model = Epic
         fields = ["name", "description"]
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["comment", "reply"]

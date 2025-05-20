@@ -1,13 +1,15 @@
 from django.urls import path, register_converter
 from django.views.generic import TemplateView
 from .views import (
+    task_home,
     TaskListView,
     TaskDetailView,
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
+    check_task,
     create_task_on_sprint,
-    task_home,
+    claimed_task_view,
     sprint_list_view,
     sprint_details_view,
     epic_list_view,
@@ -56,6 +58,12 @@ urlpatterns = [
     path(
         "tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"
     ),  # DELETE - Delete a task
+    path(
+        "tasks/check/", check_task, name="check-task"
+    ),
+    path(
+        "claim-task/<int:task_id>/", claimed_task_view, name="task-claim"
+    ),  # for claim the task 
     path(
         "tasks/sprint/add/<int:sprint_id>/",
         create_task_on_sprint,

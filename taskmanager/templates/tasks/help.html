@@ -1,4 +1,5 @@
 {% extends "tasks/base.html" %}
+{% block title %} Help {% endblock %}
 
 {% block content %}
     <div class="container mt-4">
@@ -6,10 +7,10 @@
         <div class="text-center bg-light p-5 rounded mb-4">
             <h1 class="display-5 fw-bold">Welcome to the Task Manager Help Center</h1>
             <p class="fs-5">
-                Your go-to resource for learning about Task Manager features, tips, and solutions. 
-                Explore below to find what you need, or reach out to our support team for personalized help.
+                <h5>Task management software is a digital tool designed to help individuals and teams organize, prioritize, and track tasks throughout the lifecycle of a project. 
+                    It offers features that facilitate the planning, execution, and monitoring of tasks, ensuring they are completed on time and in line with project goals.
+                    Task management software helps improve efficiency, reduce missed deadlines, and ensure accountability in both individual and team-based environments.</h5>
             </p>
-            <a href="" class="btn btn-primary btn-lg mt-3">Contact Support</a>
         </div>
 
         <!-- Help Topics Section -->
@@ -93,7 +94,7 @@
                         <p class="card-text">
                             Connect with your team and stakeholders. Manage contact information and keep everyone in sync.
                         </p>
-                        <a href="" class="btn btn-danger">Learn More about Contacts</a>
+                        <a href="{% url 'tasks:contact' %}" class="btn btn-danger">Contact Us</a>
                     </div>
                 </div>
             </div>
