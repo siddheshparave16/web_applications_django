@@ -1,0 +1,476 @@
+/* Header Styles */
+
+/* Header Container with Glowing Effect */
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    border: 2px solid #6a11cb; /* Initial border color matching the theme */
+    border-radius: 10px; /* Optional rounded corners */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.header-container:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 0 15px rgba(106, 17, 203, 0.5); /* Glowing effect */
+}
+
+/* Title Bar with Glowing Effect */
+.header-title-bar {
+    width: 100%;
+    text-align: center;
+    border: 2px solid #6a11cb; /* Initial border color */
+    padding: 10px;
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 10px; /* Rounded corners for consistency */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+.header-title-bar:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 0 15px rgba(106, 17, 203, 0.5); /* Glowing effect */
+}
+
+/* Title Text */
+.header-title {
+    margin: 0;
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Matching theme color */
+    transition: color 0.3s ease-in-out; /* Smooth transition for text color */
+}
+
+.header-title-bar:hover .header-title {
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Control Buttons */
+.header-control-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.header-control-buttons div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.red-circle {
+    background-color: red;
+}
+
+.yellow-circle {
+    background-color: yellow;
+}
+
+.green-circle {
+    background-color: green;
+}
+
+/* Header Content */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Left Side */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    width: 140px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.home-button {
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    line-height: 40px;
+    display: inline-block;
+}
+
+.home-button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Dropdown */
+.create-button {
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.create-button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
+    transform: translateY(-3px);
+}
+
+.dropdown-menu {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-item {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown-item:hover {
+    background: #ffffff;
+    color: #6a11cb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+
+/* Container for the search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Center the search bar horizontally */
+    gap: 10px; /* Space between input and button */
+    flex-grow: 1;
+    max-width: 300px; /* Maximum width of the search bar */
+    min-width: 200px; /* Minimum width of the search bar */
+}
+
+/* Form element styling */
+.search-bar-container form {
+    display: flex;
+    align-items: center; /* Align input and button vertically */
+    gap: 10px; /* Space between input and button */
+    width: 100%; /* Take full width of the container */
+}
+
+/* Styling for the input field */
+.search-input {
+    height: 40px;
+    flex-grow: 1; /* Allow the input to stretch and fill available space */
+    border: 1px solid #6a11cb;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Focus state for the input field */
+.search-input:focus {
+    outline: none;
+    border-color: #2575fc;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+}
+
+/* Styling for the button */
+.search-button {
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover state for the button */
+.search-button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Right Side */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Username Box */
+.username-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #6a11cb; /* Border with gradient-matching color */
+    border-radius: 5px;
+    padding: 0 10px;
+    height: 40px;
+    transition: all 0.3s ease-in-out;
+}
+
+.username-box:hover {
+    border-color: #2575fc; /* Glow effect on hover */
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+}
+
+/* Username Text */
+.username-text {
+    font-size: 14px;
+    color: #6a11cb;
+    font-weight: 500;
+    line-height: 40px;
+}
+
+
+/* Login Button Styling */
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #6a11cb, #38ef7d); /* Purple to Green Gradient */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4); /* Purple Shadow */
+}
+
+/* Hover Effect for Login Button */
+.login-button:hover {
+    background: linear-gradient(90deg, #38ef7d, #6a11cb); /* Reverse Gradient (Green to Purple) */
+    box-shadow: 0 8px 20px rgba(56, 239, 125, 0.6); /* Green Shadow on Hover */
+    transform: translateY(-3px);
+}
+
+
+/* Logout Button */
+.logout-button {
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ff416c, #f52906); /* Red gradient background */
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out; /* Smooth hover transition */
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: linear-gradient(90deg, #f52906, #ff416c); /* Reverse red gradient */
+    box-shadow: 0 5px 15px rgba(255, 75, 43, 0.5); /* Red glow effect */
+    transform: translateY(-3px);
+}
+
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 8px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Maintain the gradient background */
+    border: 2px solid #6a11cb; /* Add a border like the header */
+    border-radius: 10px; /* Optional: rounded corners for consistency */
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out; /* Smooth hover transition */
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+footer:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Change gradient on hover */
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Stronger glow effect */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+/* Footer Links */
+footer a.dark-text {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 5px 12px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+footer a.dark-text:hover {
+    background: #ffffff;
+    color: #6a11cb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+}
+
+/* Footer Layout */
+footer .container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Space between links and paragraph */
+    flex-wrap: wrap;
+    
+}
+
+/* Align links in a single row */
+footer .footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Footer Paragraph Text Style */
+footer .footer-text {
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 10px; /* Space between links and paragraph */
+}
+
+
+/* Task List Container */
+.task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    align-items: center; /* Center align children */
+    border: 2px solid #6a11cb; /* Optional border for the entire container */
+    border-radius: 10px; /* Rounded corners for modern design */
+    background: #ffffff; /* White background for better contrast */
+}
+
+/* Heading with Glowing Effect */
+.task-list-heading {
+    font-size: 28px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Initial text color matching the theme */
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    background: white;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+    width: fit-content; /* Adjust width to content */
+}
+
+.task-list-heading:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Task Item */
+.task-item {
+    padding: 15px;
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6a11cb; /* Text color matching the theme */
+    background: white;
+    transition: all 0.3s ease-in-out; /* Smooth hover effect */
+    width: 100%; /* Make items stretch horizontally */
+    max-width: 500px; /* Limit the width of each task */
+}
+
+/* Hover Effect for Task Item */
+.task-item:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Link Inside Task Item */
+.task-item a {
+    text-decoration: none;
+    color: #6a11cb; /* Link color matching the theme */
+    transition: color 0.3s ease-in-out; /* Smooth transition for link color */
+}
+
+.task-item:hover a {
+    color: #2575fc; /* Change link color on hover */
+}
+
+/* No Task Item */
+.task-item.no-task {
+    color: #999999; /* Gray color for no-task message */
+    border: 2px dashed #cccccc; /* Dashed border for no-task message */
+    background: #f9f9f9; /* Subtle background color for contrast */
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: stretch; /* Stretch elements to fit full width */
+    justify-content: flex-start; /* Align content at the top */
+    padding: 20px; /* Internal spacing for content */
+    gap: 20px; /* Space between child elements */
+    border: 2px solid #6a11cb; /* Border matching the theme */
+    border-radius: 10px; /* Rounded corners for consistency */
+    margin: 20px 5px; /* Same margin as footer for horizontal alignment */
+    background-color: #f8f9fa; /* Light background for contrast */
+    width: calc(100% - 10px); /* Account for left and right margins */
+    min-height: calc(100vh - 160px); /* Adjust height for header/footer */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2); /* Subtle shadow for aesthetics */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+

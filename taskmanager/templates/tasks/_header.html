@@ -1,0 +1,60 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tasks/css/header.css' %}">
+
+<header class="header-container">
+
+    <div class="header-title-bar">
+        <h5 class="header-title">Task Manager</h5>
+        <div class="header-control-buttons">
+            <div class="red-circle"></div>
+            <div class="yellow-circle"></div>
+            <div class="green-circle"></div>
+        </div>
+    </div>
+
+    <div class="header-content">
+        <!-- Left side -->
+        <div class="header-left">
+            <!-- Logo -->
+            <img src="{% static 'images/logo.png' %}" alt="Task Manager" class="header-logo"> 
+
+            <a href="{% url 'tasks:home' %}" class="home-button">
+                Home
+            </a>
+            
+            <div class="dropdown">
+                <button class="create-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Create
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'tasks:task-create' %}">Add New Task</a></li>
+                    <li><a class="dropdown-item" href="{% url 'tasks:sprint-create' %}">Add New Sprint</a></li>
+                    <li><a class="dropdown-item" href="{% url 'tasks:epic-create' %}">Add New Epic</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Middle - Search -->
+        <div class="search-bar-container">
+            <input type="text" class="search-input" id="search" placeholder="Search">
+            <button type="button" class="search-button">Go</button>
+        </div>
+
+        <!-- Right side - Auth -->
+        <div class="header-right">
+            {% if user.is_authenticated %}
+                <!-- Username and Logout Button -->
+                <div class="username-box">
+                    <span class="username-text">Welcome {{ user.username|truncatechars:10 }}</span>
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
+                </div>
+            {% else %}
+                <!-- Login link -->
+                <a href="{% url 'accounts:login' %}" class="login-button">LogIn</a>
+            {% endif %}
+        </div>
+    </div>
+</header>

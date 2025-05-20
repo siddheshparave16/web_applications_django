@@ -1,0 +1,29 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+<!-- Flex container for vertical and horizontal centering -->
+<div class="d-flex justify-content-center align-items-center vh-90">
+    <div class="text-center">
+        <!-- Heading with increased spacing -->
+        <h1 class="mb-5">Delete Epic</h1>
+        
+        <!-- Card Container with Gray Border -->
+        <div class="card" style="width: 500px; border: 2px solid gray; border-radius: 8px; padding: 20px;">
+            <p class="mb-4">
+                Are you sure you want to delete this Epic <strong>"{{epic.name}}"</strong>?
+            </p>
+
+            <!-- Form for deletion -->
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm w-100 mb-3">Yes, Delete</button>
+            </form>
+
+            <!-- Cancel button -->
+            <a href="{% url 'tasks:epic-detail' epic.id %}" class="btn btn-secondary btn-sm w-100">No, Take Me Back</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

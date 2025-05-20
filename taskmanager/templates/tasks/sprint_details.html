@@ -1,0 +1,24 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+<h1 class="text-center" style="margin-bottom:-8rem;">Sprint Details</h1> <!-- Reduced margin -->
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+        <h2 class="mb-4" style="margin-bottom: 1rem;">{{ sprint.name }}</h2> <!-- Reduced margin -->
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Description</h2>
+                <p class="card-text">{{ sprint.description }}</p>
+                <p>Start Date: {{ sprint.start_date }}</p>
+                <p>End Date: {{ sprint.end_date }}</p>
+            </div>
+        </div>
+
+        <div class="mt-4 d-inline-block">
+            <a href="{% url 'tasks:sprint-update' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
+            <a href = "{% url 'tasks:sprint-delete' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Delete</a>
+            <a href="{% url 'tasks:sprint-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Sprint List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

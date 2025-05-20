@@ -1,0 +1,25 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+<h1 class="text-center" style="margin-bottom:-8rem;">Epic Details</h1> <!-- Reduced margin -->
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+        <h2 class="mb-4" style="margin-bottom: 1rem;">{{epic.name}}</h2> <!-- Reduced margin -->
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Description</h2>
+                <p class="card-text">{{ epic.description }}</p>
+                <p>Start Date: {{ epic.created_at}}</p>
+                <p>End Date: {{ epic.creator }}</p>
+            </div>
+        </div>
+
+        <div class="mt-4 d-inline-block">
+            <a href="{% url 'tasks:epic-update' epic.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Edit</a>
+            <a href="{% url 'tasks:epic-delete' epic.id %}" class='btn btn-small' style="border: 2px solid #007bff;">delete</a>
+            <a href="{% url 'tasks:epic-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Epic List</a>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+

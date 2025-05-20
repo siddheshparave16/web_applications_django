@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} {{ page_title|default:"Default Title"}} {% endblock %}</title>
+
+    {# Page-specific CSS (Child Templates can override) #}
+    {% block extra_css %}{% endblock %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    
+    <!-- Custom Static CSS -->
+    <link rel="stylesheet" href="{% static 'tasks/static/css/style.css' %}">
+    
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Favicon for browser tab -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+        {% include "tasks/_header.html" %}
+        
+        <main class="main-container flex-grow-1">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include "tasks/_footer.html" %}
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Extra JS (Override in child templates) -->
+    {% block extra_javascript %}{% endblock %}
+</body>
+</html>
