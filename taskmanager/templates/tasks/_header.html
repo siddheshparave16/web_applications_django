@@ -63,10 +63,46 @@
 
     <!-- New Parallel Row -->
     <div class="header-parallel-row">
-        <button class="feature-button" onclick="location.href='{% url 'tasks:task-list' %}' ">Task List</button>
-        <button class="feature-button" onclick="location.href='' ">Feature 2</button>
+        <div class="dropdown">                                  
+            <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                List
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href=" {% url 'tasks:task-list' %}">Task List</a>
+                <a class="dropdown-item" href=" {% url 'tasks:sprint-list' %} ">Sprint List</a>
+                <a class="dropdown-item" href=" {% url 'tasks:epic-list' %} ">Epic List</a>
+            </div>
+        </div>
+
+        <div class="dropdown">                                  
+            <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                For User
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if not user.is_authenticated %}
+                <a class="dropdown-item" href=" {% url 'accounts:register' %}">Register</a>
+                <a class="dropdown-item" href=" {% url 'accounts:login' %} ">Login</a>
+                {% endif %}
+                
+                <a class="dropdown-item" href=" {% url 'accounts:password_change' %} ">Change User Password</a>
+                <a class="dropdown-item" href=" {% url 'accounts:password_reset' %} ">Reset User Password</a>
+            </div>
+        </div>
+
         <button class="feature-button" onclick="location.href='' ">Feature 3</button>
-        <button class="feature-button" onclick="location.href='' ">Feature 3</button>
+
+
+        <div class="dropdown">                                  
+            <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                API's
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="http://127.0.0.1:8000/api/v1/docs" target="_blank"  rel="noopener noreferrer">TaskManager API</a>
+                <a class="dropdown-item" href=" {% url 'accounts:api-token' %} ">API Token</a>
+            </div>
+        </div>
+
+
         <button class="feature-button" onclick="location.href='{% url 'tasks:help' %}' ">Help</button>
         <button class="feature-button" onclick="location.href='{% url  'tasks:contact' %}' ">Contact</button>
         <button class="feature-button" onclick="location.href='{% url 'tasks:about' %}' ">About</button>

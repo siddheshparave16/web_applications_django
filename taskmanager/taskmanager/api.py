@@ -9,8 +9,8 @@ from accounts.api.security import ApiAuthToken, JWTAuth
 from django_ratelimit.exceptions import Ratelimited
 
 
-# api = NinjaAPI(version="v1", auth=[JWTAuth(),ApiAuthToken()])
-api = NinjaAPI(version="v1")  # just for development purpose we have removed authorization of UniqueId and JWT token
+api = NinjaAPI(version="v1", auth=[JWTAuth(),ApiAuthToken()])
+# api = NinjaAPI(version="v1")  # just for development purpose we have removed authorization of UniqueId and JWT token
 
 api.add_router("/tasks/", tasks_router)
 api.add_router("/accounts/", account_router)
