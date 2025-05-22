@@ -7,7 +7,13 @@
 
 <!-- Main Task Details Container -->
 <div class="task-details-container">
-    <h1 class="task-details-heading">Task Details</h1>
+    <div class="task-header">
+        <h1 class="task-details-heading">Task Details</h1>
+        <!-- Add Task Button -->
+        <a href="{% url 'tasks:sprint-batch-create' task.id %}" class="add-task-btn">
+            Manage Sprint related to task
+        </a>
+    </div>
 
     {% if messages %}
         <div>

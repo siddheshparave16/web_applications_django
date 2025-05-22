@@ -74,6 +74,17 @@
             </div>
         </div>
 
+        {% comment %} <div class="dropdown">                                  
+            <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Formsets
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href=" {% url 'tasks:task-list' %}">Task List</a>
+                <a class="dropdown-item" href=" {% url 'tasks:sprint-list' %} ">Sprint List</a>
+                <a class="dropdown-item" href=" {% url 'tasks:epic-list' %} ">Epic List</a>
+            </div>
+        </div> {% endcomment %}
+
         <div class="dropdown">                                  
             <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 For User
@@ -89,9 +100,6 @@
             </div>
         </div>
 
-        <button class="feature-button" onclick="location.href='' ">Feature 3</button>
-
-
         <div class="dropdown">                                  
             <button class="feature-button btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 API's
@@ -99,6 +107,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="http://127.0.0.1:8000/api/v1/docs" target="_blank"  rel="noopener noreferrer">TaskManager API</a>
                 <a class="dropdown-item" href=" {% url 'accounts:api-token' %} ">API Token</a>
+                <a class="dropdown-item" href=" http://127.0.0.1:8000/api/v1/docs#/accounts/accounts_api_views_referesh_token ">Get API Access token</a>
             </div>
         </div>
 

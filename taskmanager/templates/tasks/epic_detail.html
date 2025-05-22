@@ -1,26 +1,41 @@
 {% extends "tasks/base.html" %}
-{% block title %} Epic Details {% endblock %}
+{% block title %}Epic Details{% endblock %}
 
 {% block content %}
-<h1 class="text-center" style="margin-bottom:-8rem;">Epic Details</h1> <!-- Reduced margin -->
-<div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container text-center">
-        <h2 class="mb-4" style="margin-bottom: 1rem;">{{epic.name}}</h2> <!-- Reduced margin -->
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Description</h2>
-                <p class="card-text">{{ epic.description }}</p>
-                <p>Start Date: {{ epic.created_at}}</p>
-                <p>End Date: {{ epic.creator }}</p>
+<!-- Main Epic Details Container -->
+<div class="epic-details-container">
+    <!-- Epic Header Section -->
+    <div class="epic-header">
+        <h1 class="epic-details-heading">Epic Details</h1>
+        <!-- Add Task Button -->
+        <a href="{% url 'tasks:task-batch-create' epic.id %}" class="add-task-btn">
+            Manage Task related To Epic
+        </a>
+    </div>
+    
+    <!-- Epic Information Card -->
+    <div class="epic-card">
+        <!-- Epic Name -->
+        <h2 class="text-center text-uppercase">{{ epic.name }}</h2>
+        
+        <!-- Epic Details -->
+        <div class="epic-info">
+            <h3>Description</h3>
+            <p>{{ epic.description }}</p>
+            
+            <!-- Epic Dates -->
+            <div class="epic-dates">
+                <p><strong>Start Date:</strong> {{ epic.created_at }}</p>
+                <p><strong>Creator:</strong> {{ epic.creator }}</p>
             </div>
         </div>
+    </div>
 
-        <div class="mt-4 d-inline-block">
-            <a href="{% url 'tasks:epic-update' epic.id %}" class='btn btn-small' style="border: 2px solid #007bff;">Edit</a>
-            <a href="{% url 'tasks:epic-delete' epic.id %}" class='btn btn-small' style="border: 2px solid #007bff;">delete</a>
-            <a href="{% url 'tasks:epic-list' %}" class='btn btn-small' style="border: 2px solid #007bff;">Back to Epic List</a>
-        </div>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'tasks:epic-update' epic.id %}" class="btn btn-secondary">Edit Epic</a>
+        <a href="{% url 'tasks:epic-delete' epic.id %}" class="btn btn-secondary">Delete Epic</a>
+        <a href="{% url 'tasks:epic-list' %}" class="btn btn-secondary">Back to All Epics</a>
     </div>
 </div>
-{% endblock  %}
-
+{% endblock %}

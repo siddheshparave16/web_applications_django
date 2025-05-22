@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: postgres:latest
@@ -22,16 +23,22 @@ services:
       - redis_data:/data
     networks:
       - my-network
-  
+
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
     ports:
-      - "1025:1025" # SMTP server
-      - "8025:8025" # Web UI
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - my-network
-
+    volumes:
+      - ./mailhog-data:/maildir
+    environment:
+      MH_MAILDIR_UID: 1000
+      MH_MAILDIR_GID: 1000
+    command: ["-storage=maildir", "-maildir-path=/maildir"]
+    user: "1000:1000"
 
 volumes:
   postgres-data:
@@ -40,4 +47,3 @@ volumes:
 networks:
   my-network:
     driver: bridge
-

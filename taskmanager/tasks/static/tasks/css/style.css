@@ -331,74 +331,75 @@
 }
 
 
-/* Parallel Row Styling */
+/* Container for all buttons */
 .header-parallel-row {
     display: flex;
-    justify-content: center; /* Center align the buttons */
-    align-items: center; /* Align buttons vertically */
-    flex-wrap: wrap; /* Allow buttons to wrap when needed */
-    background-color: transparent; /* Transparent to blend with the navbar */
-    padding: 10px 0; /* Adjust padding for tighter spacing */
-    gap: 8px; /* Reduced gap for a closer layout */
-    width: 100%; /* Take full width of the container */
-    margin-top: 0; /* No extra margin */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+    width: 100%;
+    margin: 0;
+    background: transparent;
 }
 
-/* Feature Button Styling with Radial Gradient */
+/* Base button styling - ensures consistency */
 .feature-button {
-    flex: 1 1 calc(10% - 8px); /* Flexible sizing for multiple buttons */
-    max-width: 120px; /* Limit maximum width */
-    height: 40px; /* Fixed height consistent with other buttons */
-    padding: 0; /* Reset padding */
-    background: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 97, 255, 1) 0%, rgba(96, 239, 255, 1) 100.7%); /* Radial Gradient */
-    color: white; /* White text for better contrast */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 14px; /* Font size matching other buttons */
-    font-weight: 600; /* Bold font weight */
-    cursor: pointer; /* Pointer cursor on hover */
-    text-align: center; /* Center align text */
-    text-transform: uppercase; /* Capitalize button text */
-    line-height: 40px; /* Vertically align text */
-    transition: all 0.3s ease-in-out; /* Smooth hover transition */
-    box-shadow: 0 4px 8px rgba(0, 97, 255, 0.3); /* Subtle shadow for depth */
+    min-width: 100px;       /* Minimum width to prevent squishing */
+    max-width: 120px;       /* Maximum width */
+    height: 40px;           /* Fixed height */
+    padding: 0 5px;         /* Horizontal padding only */
+    background: radial-gradient(circle farthest-corner at 10% 20%, 
+              rgba(0, 97, 255, 1) 0%, 
+              rgba(96, 239, 255, 1) 100.7%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;        /* Slightly smaller for better fit */
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 40px;      /* Vertically center text */
+    white-space: nowrap;    /* Force single line */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ... if text overflows */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 97, 255, 0.3);
 }
 
-/* Hover Effect for Radial Gradient Buttons */
+/* Dropdown buttons - centers text with arrow */
+.dropdown .feature-button {
+    padding-right: 25px;    /* Space for dropdown arrow */
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dropdown arrow positioning */
+.dropdown-toggle::after {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Hover effects */
 .feature-button:hover {
-    background: radial-gradient(circle farthest-corner at 10% 20%, rgba(96, 239, 255, 1) 0%, rgba(0, 97, 255, 1) 100.7%); /* Reverse gradient on hover */
-    box-shadow: 0 8px 16px rgba(0, 97, 255, 0.5); /* Enhanced shadow for hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    background: radial-gradient(circle farthest-corner at 10% 20%, 
+              rgba(96, 239, 255, 1) 0%, 
+              rgba(0, 97, 255, 1) 100.7%);
+    box-shadow: 0 6px 12px rgba(0, 97, 255, 0.4);
+    transform: translateY(-2px);
 }
 
-/* Responsive Styling */
-@media (max-width: 1200px) {
-    .feature-button {
-        flex: 1 1 calc(20% - 8px); /* Fit 5 buttons per row */
-    }
-}
-
-@media (max-width: 992px) {
-    .feature-button {
-        flex: 1 1 calc(25% - 8px); /* Fit 4 buttons per row */
-    }
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .feature-button {
-        flex: 1 1 calc(33.33% - 8px); /* Fit 3 buttons per row */
-    }
-}
-
-@media (max-width: 576px) {
-    .feature-button {
-        flex: 1 1 calc(50% - 8px); /* Fit 2 buttons per row */
-    }
-}
-
-@media (max-width: 400px) {
-    .feature-button {
-        flex: 1 1 100%; /* Stack buttons vertically */
+        min-width: 80px;
+        font-size: 10px;
     }
 }
 
@@ -923,6 +924,15 @@ body {
     box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
 }
 
+/* Task Header - EXACT match to sprint header */
+.task-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
 /* Comments Container */
 .comments-container {
     margin-top: 40px;
@@ -1058,5 +1068,203 @@ body {
     .btn {
         width: 100%; /* Make buttons full width */
         margin-bottom: 10px;
+    }
+}
+
+
+/* Main Sprint Details Container */
+.sprint-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Sprint Header */
+.sprint-header {
+    text-align: center; /* Center align the header */
+    position: relative; /* For positioning the "Add Task" button */
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.sprint-header h1 {
+    color: #6a11cb;
+    font-size: 28px;
+}
+
+/* Add Task Button */
+.add-task-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 8px 16px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sprint Card */
+.sprint-card {
+    padding: 20px;
+    border: 2px solid #6a11cb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    text-align: left; /* Consistent with Task Details */
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Center align the buttons */
+    gap: 10px; /* Add spacing between buttons */
+    margin: 20px 0; /* Add vertical spacing around the button group */
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.2);
+}
+
+
+/* Main Epic Details Container - EXACT match to sprint container */
+.epic-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Epic Header - EXACT match to sprint header */
+.epic-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.epic-header h1 {
+    color: #6a11cb;
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Add Task Button - EXACT same styling as sprint */
+.add-task-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Epic Card - EXACT match to sprint card */
+.epic-card {
+    padding: 2rem;
+    border: 2px solid #6a11cb;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    background-color: #f9f9ff;
+}
+
+.epic-card h2 {
+    color: #6a11cb;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* Epic Info - matches sprint info structure */
+.epic-info h3 {
+    color: #555;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.epic-info p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.epic-dates {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ddd;
+}
+
+/* Action Buttons - EXACT same as sprint buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+}
+
+.action-buttons a {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #6a11cb;
+    border: 1px solid #6a11cb;
+    transition: all 0.3s ease;
+}
+
+.action-buttons a:hover {
+    background-color: #6a11cb;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments - same as sprint */
+@media (max-width: 768px) {
+    .epic-header {
+        padding-bottom: 3rem; /* Make room for button */
+    }
+    
+    .add-task-btn {
+        top: auto;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
     }
 }

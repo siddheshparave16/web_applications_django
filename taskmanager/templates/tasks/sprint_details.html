@@ -1,25 +1,41 @@
 {% extends "tasks/base.html" %}
-{% block title %} Sprint Details {% endblock %}
+{% block title %}Sprint Details{% endblock %}
 
 {% block content %}
-<h1 class="text-center" style="margin-bottom:-8rem;">Sprint Details</h1> <!-- Reduced margin -->
-<div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container text-center">
-        <h2 class="mb-4" style="margin-bottom: 1rem;">{{ sprint.name }}</h2> <!-- Reduced margin -->
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Description</h2>
-                <p class="card-text">{{ sprint.description }}</p>
-                <p>Start Date: {{ sprint.start_date }}</p>
-                <p>End Date: {{ sprint.end_date }}</p>
+<!-- Main Sprint Details Container -->
+<div class="sprint-details-container">
+    <!-- Sprint Header Section -->
+    <div class="sprint-header">
+        <h1 class="sprint-details-heading">Sprint Details</h1>
+        <!-- Add Task Button -->
+        <a href="{% url 'tasks:task-add-to-sprint' sprint.id %}" class="add-task-btn">
+            Add Task within Sprint
+        </a>
+    </div>
+    
+    <!-- Sprint Information Card -->
+    <div class="sprint-card">
+        <!-- Sprint Name -->
+        <h2 class="text-center text-uppercase">{{ sprint.name }}</h2>
+        
+        <!-- Sprint Details -->
+        <div class="sprint-info">
+            <h3>Description</h3>
+            <p>{{ sprint.description }}</p>
+            
+            <!-- Sprint Dates -->
+            <div class="sprint-dates">
+                <p><strong>Start Date:</strong> {{ sprint.start_date }}</p>
+                <p><strong>End Date:</strong> {{ sprint.end_date }}</p>
             </div>
         </div>
+    </div>
 
-        <div class="mt-4 d-inline-block">
-            <a href="{% url 'tasks:sprint-update' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
-            <a href = "{% url 'tasks:sprint-delete' sprint.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Delete</a>
-            <a href="{% url 'tasks:sprint-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Sprint List</a>
-        </div>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'tasks:sprint-update' sprint.id %}" class="btn btn-secondary">Edit Sprint</a>
+        <a href="{% url 'tasks:sprint-delete' sprint.id %}" class="btn btn-secondary">Delete Sprint</a>
+        <a href="{% url 'tasks:sprint-list' %}" class="btn btn-secondary">Back to All Sprints</a>
     </div>
 </div>
 {% endblock %}

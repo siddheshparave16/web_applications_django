@@ -586,12 +586,17 @@ class ContactFormView(FormView):
         subject = form.cleaned_data.get("subject")
         message = form.cleaned_data.get("message")
         from_email = form.cleaned_data.get("from_email")
+        to_email = "taskmanageradmin@gmail.com"
+
+        print("Arguments being passed:")
+        print(f"subject: {subject}, message: {message}, from_email: {from_email}, to_email: {to_email}")
+
 
         send_contact_email(
             subject=subject,
             message=message,
             from_email=from_email,
-            to_email=["user16@gmail.com"],
+            to_email= [to_email],    # must be a list
         )
 
         return super().form_valid(form)

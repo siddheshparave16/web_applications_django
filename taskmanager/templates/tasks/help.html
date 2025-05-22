@@ -1,4 +1,6 @@
 {% extends "tasks/base.html" %}
+{% load static %}
+
 {% block title %} Help {% endblock %}
 
 {% block content %}
@@ -18,13 +20,13 @@
             <!-- What is Task Manager -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Task Manager">
+                    <img src="{% static 'images/task_manager.png' %}" class="card-img-top" alt="Task Manager">
                     <div class="card-body">
                         <h5 class="card-title">What is Task Manager?</h5>
                         <p class="card-text">
                             Task Manager is software designed to help you organize, prioritize, and track tasks efficiently.
                         </p>
-                        <a href="" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'tasks:home' %}" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -60,13 +62,13 @@
             <!-- Sprints -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Sprints">
+                    <img src="{% static 'images/spint-schedule.png' %}" class="card-img-top" alt="Sprints">
                     <div class="card-body">
                         <h5 class="card-title">Sprints</h5>
                         <p class="card-text">
                             Plan and execute sprints with ease. Monitor sprint progress and ensure timely delivery of milestones.
                         </p>
-                        <a href="" class="btn btn-success">Learn More about Sprints</a>
+                        <a href="{% url 'tasks:sprint-list' %}" class="btn btn-success">Learn More about Sprints</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +90,7 @@
             <!-- Contacts -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Contacts">
+                    <img src="{% static 'images/contact_us.png' %}" class="card-img-top" alt="Contacts">
                     <div class="card-body">
                         <h5 class="card-title">Contacts</h5>
                         <p class="card-text">
