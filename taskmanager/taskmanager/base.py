@@ -223,12 +223,6 @@ AUTHENTICATION_BACKEND = [
 # CSRF_COOKIE_SECURE = False
 
 
-# if not DEBUG:
-#     SECURE_HSTS_SECONDS = 31536000  # 1 year
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-
-
 # Content Security Policy (CSP) Settings
 CSP_DEFAULT_SRC = ("'self'",)  # Allow content only from our own domain
 

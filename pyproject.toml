@@ -1,10 +1,17 @@
 [tool.poetry]
-name = "task-manager"
+name = "taskmanager"
 version = "0.1.0"
-description = ""
-authors = ["Leonardo Lazzaro <llazzaro@dc.uba.ar>"]
+description = "A Django-based task management system."
+authors = ["Siddhesh Parave <siddeshparave16@gmail.com>"]
 readme = "README.md"
-packages = [{include = "task_manager"}]
+license = "UNLICENSE"
+repository = "https://github.com/siddheshparave16/web_applications_django"
+
+packages = [
+    {include = "taskmanager", from = "taskmanager"},  # Main Django config
+    {include = "accounts", from = "taskmanager"},     # Apps
+    {include = "tasks", from = "taskmanager"}
+]
 
 
 [tool.poetry.dependencies]
@@ -30,6 +37,7 @@ black = "^25.1.0"
 django-ninja = "^1.4.0"
 pyjwt = "^2.10.1"
 django-ratelimit = "^4.1.0"
+gunicorn = "^23.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -39,3 +47,4 @@ pytest = "^7.4.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
