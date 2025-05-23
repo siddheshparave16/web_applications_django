@@ -121,14 +121,26 @@
     box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
     transform: translateY(-3px);
 }
-
 /* Dropdown */
 .create-button {
     width: 120px;
     height: 40px;
     text-align: center;
     border-radius: 5px;
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter-button {
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
     color: white;
     font-size: 14px;
     font-weight: 600;
@@ -137,39 +149,48 @@
 }
 
 .create-button:hover {
-    background: linear-gradient(90deg, #2575fc, #6a11cb);
-    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
-    transform: translateY(-3px);
+    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverse Gradient on Hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Glowing Effect */
+    transform: translateY(-3px); /* Slight Lift on Hover */
 }
 
 .dropdown-menu {
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
-    color: white;
+    background: white; /* White background for dropdown menu */
+    color: #6a11cb; /* Purple text by default */
     border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
     overflow: hidden;
     padding: 0;
     margin: 0;
 }
 
+/* Dropdown Item Default State */
 .dropdown-item {
     height: 40px;
     line-height: 40px;
     text-align: center;
     font-size: 14px;
     font-weight: 600;
-    color: white;
+    color: #6a11cb; /* Purple text for default state */
     text-decoration: none;
-    border: none;
-    background: transparent;
+    background: white; /* White background for default state */
     transition: all 0.3s ease-in-out;
+    border: none;
 }
 
+/* Dropdown Item Active State */
+.dropdown-item.active {
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
+    color: white; /* White text for active item */
+}
+
+/* Hover Effect for Dropdown Items */
 .dropdown-item:hover {
-    background: #ffffff;
-    color: #6a11cb;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
+    background: #2575fc; /* Blue background on Hover */
+    color: white; /* White text on Hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Slight Shadow */
+    transform: translateY(-2px); /* Slight Lift */
     cursor: pointer;
 }
 
@@ -310,6 +331,78 @@
 }
 
 
+/* Container for all buttons */
+.header-parallel-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+    width: 100%;
+    margin: 0;
+    background: transparent;
+}
+
+/* Base button styling - ensures consistency */
+.feature-button {
+    min-width: 100px;       /* Minimum width to prevent squishing */
+    max-width: 120px;       /* Maximum width */
+    height: 40px;           /* Fixed height */
+    padding: 0 5px;         /* Horizontal padding only */
+    background: radial-gradient(circle farthest-corner at 10% 20%, 
+              rgba(0, 97, 255, 1) 0%, 
+              rgba(96, 239, 255, 1) 100.7%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;        /* Slightly smaller for better fit */
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 40px;      /* Vertically center text */
+    white-space: nowrap;    /* Force single line */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ... if text overflows */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 97, 255, 0.3);
+}
+
+/* Dropdown buttons - centers text with arrow */
+.dropdown .feature-button {
+    padding-right: 25px;    /* Space for dropdown arrow */
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dropdown arrow positioning */
+.dropdown-toggle::after {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Hover effects */
+.feature-button:hover {
+    background: radial-gradient(circle farthest-corner at 10% 20%, 
+              rgba(96, 239, 255, 1) 0%, 
+              rgba(0, 97, 255, 1) 100.7%);
+    box-shadow: 0 6px 12px rgba(0, 97, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .feature-button {
+        min-width: 80px;
+        font-size: 10px;
+    }
+}
+
 /* Footer Styles */
 footer {
     text-align: center;
@@ -391,6 +484,54 @@ footer .footer-text {
     background: #ffffff; /* White background for better contrast */
 }
 
+/* Dropdown Styling */
+.form-select {
+    width: auto; /* Adjust width to content */
+    height: 40px; /* Match the height of .home-button */
+    padding: 0 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Purple to Blue Gradient */
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Hover Effect for Dropdown */
+.form-select:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverse Gradient */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Glowing Effect */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+/* Dropdown Container for Right Alignment */
+#filter-form {
+    display: flex;
+    justify-content: flex-end; /* Align dropdowns to the right */
+    gap: 10px; /* Space between dropdowns */
+    width: 100%; /* Full width of the container */
+    margin-bottom: 20px; /* Add spacing below the dropdowns */
+}
+
+/* Dropdown Options */
+.form-select option {
+    background: #ffffff; /* White background for options */
+    color: #6a11cb; /* Purple text */
+    font-weight: 600;
+    border: none;
+    text-align: center;
+}
+
+/* Option Hover Styling (For Modern Browsers) */
+.form-select option:hover {
+    background: #2575fc; /* Blue background on hover */
+    color: white; /* White text on hover */
+}
+
 /* Heading with Glowing Effect */
 .task-list-heading {
     font-size: 28px; /* Larger font size */
@@ -454,6 +595,7 @@ footer .footer-text {
 }
 
 
+
 .main-container {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
@@ -474,3 +616,655 @@ footer .footer-text {
 }
 
 
+/* Sprint List Container*/
+.sprint-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    align-items: center; /* Center align children */
+    border: 2px solid #6a11cb; /* Optional border for the entire container */
+    border-radius: 10px; /* Rounded corners for modern design */
+    background: #ffffff; /* White background for better contrast */
+}
+
+/* Dropdown Container for Right Alignment */
+#filter-sprint-form {
+    display: flex;
+    justify-content: flex-end; /* Align dropdowns to the right */
+    gap: 10px; /* Space between dropdowns */
+    width: 100%; /* Full width of the container */
+    margin-bottom: 20px; /* Add spacing below the dropdowns */
+}
+
+/* Heading with Glowing Effect for Sprint List */
+.sprint-list-heading {
+    font-size: 28px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Initial text color matching the theme */
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    background: white;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+    width: fit-content; /* Adjust width to content */
+}
+
+.sprint-list-heading:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Heading with Glowing Effect for Sprint List */
+.sprint-list-heading {
+    font-size: 28px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Initial text color matching the theme */
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    background: white;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+    width: fit-content; /* Adjust width to content */
+}
+
+.sprint-list-heading:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Sprint Item */
+.sprint-item {
+    padding: 15px;
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6a11cb; /* Text color matching the theme */
+    background: white;
+    transition: all 0.3s ease-in-out; /* Smooth hover effect */
+    width: 100%; /* Make items stretch horizontally */
+    max-width: 500px; /* Limit the width of each sprint */
+}
+
+/* Hover Effect for Sprint Item */
+.sprint-item:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Link Inside Sprint Item */
+.sprint-item a {
+    text-decoration: none;
+    color: #6a11cb; /* Link color matching the theme */
+    transition: color 0.3s ease-in-out; /* Smooth transition for link color */
+}
+
+.sprint-item:hover a {
+    color: #2575fc; /* Change link color on hover */
+}
+
+/* No Sprint Item */
+.sprint-item.no-item {
+    color: #999999; /* Gray color for no-sprint message */
+    border: 2px dashed #cccccc; /* Dashed border for no-sprint message */
+    background: #f9f9f9; /* Subtle background color for contrast */
+}
+
+
+
+/* Epic List Container*/
+.epic-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    align-items: center; /* Center align children */
+    border: 2px solid #6a11cb; /* Optional border for the entire container */
+    border-radius: 10px; /* Rounded corners for modern design */
+    background: #ffffff; /* White background for better contrast */
+}
+
+/* Heading with Glowing Effect for Epic List */
+.epic-list-heading {
+    font-size: 28px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Initial text color matching the theme */
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    background: white;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+    width: fit-content; /* Adjust width to content */
+}
+
+.epic-list-heading:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Heading with Glowing Effect for Sprint List */
+.epic-list-heading {
+    font-size: 28px; /* Larger font size */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #6a11cb; /* Initial text color matching the theme */
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    background: white;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+    width: fit-content; /* Adjust width to content */
+}
+
+.epic-list-heading:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+    color: #2575fc; /* Change text color on hover */
+}
+
+/* Epic Item */
+.epic-item {
+    padding: 15px;
+    border: 2px solid #6a11cb; /* Initial border color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6a11cb; /* Text color matching the theme */
+    background: white;
+    transition: all 0.3s ease-in-out; /* Smooth hover effect */
+    width: 100%; /* Make items stretch horizontally */
+    max-width: 500px; /* Limit the width of each sprint */
+}
+
+/* Hover Effect for Epic Item */
+.epic-item:hover {
+    border-color: #2575fc; /* Change border color on hover */
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5); /* Add glowing effect */
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Link Inside Epic Item */
+.epic-item a {
+    text-decoration: none;
+    color: #6a11cb; /* Link color matching the theme */
+    transition: color 0.3s ease-in-out; /* Smooth transition for link color */
+}
+
+.epic-item:hover a {
+    color: #2575fc; /* Change link color on hover */
+}
+
+/* No Epic Item */
+.epic-item.no-item {
+    color: #999999; /* Gray color for no-sprint message */
+    border: 2px dashed #cccccc; /* Dashed border for no-sprint message */
+    background: #f9f9f9; /* Subtle background color for contrast */
+}
+
+
+/* About Container Styling */
+.about-container {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9; /* Light background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* About Header Section */
+.about-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Profile Picture Styling */
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Circular image */
+    border: 3px solid #6a11cb; /* Add border to match theme */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+/* About Description Styling */
+.about-description {
+    flex: 1;
+    margin-left: 20px; /* Space between image and description */
+}
+
+.about-description h1 {
+    font-size: 28px;
+    color: #6a11cb; /* Theme color */
+    margin-bottom: 10px;
+}
+
+.about-description p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333; /* Darker text for readability */
+}
+
+/* Skills Section */
+.about-skills-heading {
+    text-align: center;
+    font-size: 24px;
+    color: #2575fc; /* Light blue heading */
+    margin-bottom: 20px;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Space between skill cards */
+}
+
+/* Skill Card Styling */
+.skill-card {
+    padding: 10px 15px;
+    background: #6a11cb; /* Purple background */
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect for Skill Cards */
+.skill-card:hover {
+    background: #2575fc; /* Light blue on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.5);
+}
+
+
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+/* Main Task Details Container */
+.task-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Task Header - EXACT match to sprint header */
+.task-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* Comments Container */
+.comments-container {
+    margin-top: 40px;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.1);
+}
+
+/* Headings */
+.task-details-heading,
+.comments-container h3 {
+    color: #6a11cb;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Task Card for Details */
+.task-card {
+    padding: 20px;
+    border: 2px solid #6a11cb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.task-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Mini Container for Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Center align the buttons */
+    gap: 10px; /* Add spacing between buttons */
+    margin: 20px 0; /* Add vertical spacing around the button group */
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.2);
+}
+
+/* Buttons */
+.btn {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #6a11cb;
+    border: 2px solid #6a11cb;
+}
+
+.btn-secondary:hover {
+    background-color: #6a11cb;
+    color: #ffffff;
+}
+
+/* Comments Section */
+.comment-box {
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.1);
+}
+
+.reply-box {
+    margin-top: 10px;
+    margin-left: 20px;
+    border-left: 2px solid #007bff;
+    padding-left: 15px;
+    background-color: #f1f8ff;
+    border-radius: 5px;
+}
+
+/* Form for Adding Comments */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #6a11cb;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+}
+
+.comments-container form button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%; /* Make buttons full width */
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Main Sprint Details Container */
+.sprint-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Sprint Header */
+.sprint-header {
+    text-align: center; /* Center align the header */
+    position: relative; /* For positioning the "Add Task" button */
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.sprint-header h1 {
+    color: #6a11cb;
+    font-size: 28px;
+}
+
+/* Add Task Button */
+.add-task-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 8px 16px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sprint Card */
+.sprint-card {
+    padding: 20px;
+    border: 2px solid #6a11cb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    text-align: left; /* Consistent with Task Details */
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Center align the buttons */
+    gap: 10px; /* Add spacing between buttons */
+    margin: 20px 0; /* Add vertical spacing around the button group */
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.2);
+}
+
+
+/* Main Epic Details Container - EXACT match to sprint container */
+.epic-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Epic Header - EXACT match to sprint header */
+.epic-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.epic-header h1 {
+    color: #6a11cb;
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Add Task Button - EXACT same styling as sprint */
+.add-task-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Epic Card - EXACT match to sprint card */
+.epic-card {
+    padding: 2rem;
+    border: 2px solid #6a11cb;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    background-color: #f9f9ff;
+}
+
+.epic-card h2 {
+    color: #6a11cb;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* Epic Info - matches sprint info structure */
+.epic-info h3 {
+    color: #555;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.epic-info p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.epic-dates {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ddd;
+}
+
+/* Action Buttons - EXACT same as sprint buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 2px solid #6a11cb;
+    border-radius: 10px;
+}
+
+.action-buttons a {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #6a11cb;
+    border: 1px solid #6a11cb;
+    transition: all 0.3s ease;
+}
+
+.action-buttons a:hover {
+    background-color: #6a11cb;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments - same as sprint */
+@media (max-width: 768px) {
+    .epic-header {
+        padding-bottom: 3rem; /* Make room for button */
+    }
+    
+    .add-task-btn {
+        top: auto;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}

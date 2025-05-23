@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tasks.models import Task, Epic, Sprint, SubscribedEmail
+from tasks.models import Task, Epic, Sprint, SubscribedEmail, Comment
 
 
 # admin customization class
@@ -76,8 +76,13 @@ class SubscribedEmailAdmin(admin.ModelAdmin):
     list_display = ("email", "task")
 
 
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ("author", "comment", "created_at", "reply", "task")
+
+
 # Register your models here.
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Epic, EpicAdmin)
 admin.site.register(Sprint, SprintAdmin)
 admin.site.register(SubscribedEmail, SubscribedEmailAdmin)
+admin.site.register(Comment, CommentsAdmin)

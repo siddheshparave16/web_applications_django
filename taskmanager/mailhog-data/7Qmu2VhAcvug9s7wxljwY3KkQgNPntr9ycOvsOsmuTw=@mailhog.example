@@ -1,0 +1,14 @@
+HELO:<DESKTOP-CDU3QJJ.>
+FROM:<asdf@gmail.com>
+TO:<taskmanageradmin@gmail.com>
+
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: To Check mailhog backend mail
+From: asdf@gmail.com
+To: taskmanageradmin@gmail.com
+Date: Thu, 22 May 2025 04:15:49 -0000
+Message-ID: <174788734927.3120.17562575595563317279@DESKTOP-CDU3QJJ.>
+
+mail smtp backend

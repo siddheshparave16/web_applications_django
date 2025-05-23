@@ -178,3 +178,18 @@ class SubscribedEmail(models.Model):
 # Model for store Unique UUID to prevent duplication.
 class Formsubmission(models.Model):
     uuid = models.UUIDField(unique=True)
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, related_name="comments_authored")
+    comment = models.TextField(max_length=500)
+    created_at = models.DateField(auto_now_add=True)
+    reply = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name="replies",blank=True, null=True)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="comments")
+
+    def __str__(self):
+        return f'{self.comment} - {self.author}'
+
+    
+    class Meta:
+        ordering = ['-created_at']      # latest comment will be display first

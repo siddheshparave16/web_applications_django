@@ -1,4 +1,7 @@
 {% extends "tasks/base.html" %}
+{% load static %}
+
+{% block title %} Help {% endblock %}
 
 {% block content %}
     <div class="container mt-4">
@@ -6,10 +9,10 @@
         <div class="text-center bg-light p-5 rounded mb-4">
             <h1 class="display-5 fw-bold">Welcome to the Task Manager Help Center</h1>
             <p class="fs-5">
-                Your go-to resource for learning about Task Manager features, tips, and solutions. 
-                Explore below to find what you need, or reach out to our support team for personalized help.
+                <h5>Task management software is a digital tool designed to help individuals and teams organize, prioritize, and track tasks throughout the lifecycle of a project. 
+                    It offers features that facilitate the planning, execution, and monitoring of tasks, ensuring they are completed on time and in line with project goals.
+                    Task management software helps improve efficiency, reduce missed deadlines, and ensure accountability in both individual and team-based environments.</h5>
             </p>
-            <a href="" class="btn btn-primary btn-lg mt-3">Contact Support</a>
         </div>
 
         <!-- Help Topics Section -->
@@ -17,13 +20,19 @@
             <!-- What is Task Manager -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Task Manager">
+                    <img src="{% static 'images/task_manager.png' %}" class="card-img-top" alt="Task Manager" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">What is Task Manager?</h5>
                         <p class="card-text">
-                            Task Manager is software designed to help you organize, prioritize, and track tasks efficiently.
+                            <p>
+                            Task Manager is a powerful digital tool designed to streamline task organization, prioritization, and tracking for individuals and teams. It serves as a centralized platform where users can create, assign, and monitor tasks throughout their lifecycle—from planning to completion. By providing clear visibility into workloads, deadlines, and dependencies, Task Manager helps users stay organized, reduce missed deadlines, and improve overall productivity. Whether managing personal to-do lists or complex team projects, the software ensures that all tasks align with broader goals and are completed efficiently.
+                            </p>
+
+                            <p>
+                            Built with modern workflows in mind, Task Manager supports various methodologies including Agile and traditional project management. It offers features like drag-and-drop prioritization, progress tracking, and real-time collaboration, making it easier for teams to coordinate efforts. The system includes automation for recurring tasks, smart notifications for upcoming deadlines, and advanced reporting tools to analyze performance. By consolidating task management into a single intuitive interface, it eliminates the need for scattered spreadsheets or disjointed communication tools, creating a seamless workflow experience for all users.
+                            </p>
                         </p>
-                        <a href="" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'tasks:help' %}" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -31,13 +40,23 @@
             <!-- Getting Started -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Getting Started">
+                    <img src="{% static 'images/getting_started.png' %}" class="card-img-top" alt="Getting Started" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">Getting Started</h5>
                         <p class="card-text">
-                            Learn how to create tasks, manage deadlines, and collaborate with your team effectively.
+                            <p>
+                            Getting started with Task Manager is simple and straightforward. Begin by logging into your account or registering if you're a new user. Create your first task by filling out the task creation form, where you can specify titles, descriptions, and deadlines. Organize your work into sprints for time-bound projects or group related tasks under epics for larger initiatives. Assign tasks to team members and monitor progress through the task list view.
+                            </p>
+
+                            <p>
+                            Collaborate effectively using the team features. Claim tasks through the task claim system to manage your workload. Use batch creation for adding multiple tasks at once and check sprint details to track progress. The system automatically notifies you about approaching deadlines and any changes. For additional assistance, visit the help center or contact our support team.
+                            </p>
+
+                            <p>
+                            Customize your experience through account settings. Set your notification preferences and manage API tokens for integrations. Utilize sprint planning tools and epic tracking for complex projects. These features will help you streamline task management and enhance team collaboration from the very beginning.
+                            </p>   
                         </p>
-                        <a href="" class="btn btn-success">Get Started</a>
+                        <a href="{% url 'tasks:home' %}" class="btn btn-success">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -45,13 +64,23 @@
             <!-- Tasks -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Tasks">
+                    <img src="{% static 'images/task.png' %}" class="card-img-top" alt="Tasks" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">Tasks</h5>
                         <p class="card-text">
-                            Create and manage tasks effortlessly. Assign tasks to team members, set deadlines, and track their progress.
+                            <p>
+                            The <strong>/tasks/</strong> endpoint serves as your task management hub. Create new items via <strong>/tasks/new/</strong> with titles, descriptions, and deadlines. View and organize all tasks through <strong>/tasks/</strong> listing, which supports filtering and sorting. Detailed task information is available at <strong>/tasks/[id]/</strong> for each item.
+                            </p>
+
+                            <p>
+                            Manage tasks through dedicated endpoints: update details at <strong>/tasks/[id]/edit/</strong>, remove tasks at <strong>/tasks/[id]/delete/</strong>, and claim ownership at <strong>/claim-task/[id]/</strong>. The system tracks all changes automatically, maintaining complete activity history for audit purposes.
+                            </p>
+
+                            <p>
+                            For sprint integration, use <strong>/tasks/sprint/add/[sprint_id]/</strong> to associate tasks with work periods. Batch operations through <strong>/epic/[epic_pk]/</strong> help manage multiple items efficiently. These structured endpoints provide full control while enabling team collaboration.
+                            </p>    
                         </p>
-                        <a href="" class="btn btn-primary">Learn More about Tasks</a>
+                        <a href="tasks:task-list" class="btn btn-primary">Learn More about Tasks</a>
                     </div>
                 </div>
             </div>
@@ -59,13 +88,23 @@
             <!-- Sprints -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Sprints">
+                    <img src="{% static 'images/spint-schedule.png' %}" class="card-img-top" alt="Sprints" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">Sprints</h5>
                         <p class="card-text">
-                            Plan and execute sprints with ease. Monitor sprint progress and ensure timely delivery of milestones.
+                            <p>
+                            Sprints are managed through the <strong>/sprints/</strong> endpoint, where you can view all active work periods. Create new sprints via <strong>/sprints/new/</strong>, specifying duration and goals. Detailed sprint planning happens at <strong>/sprints/[sprint_id]/</strong>, showing all associated tasks and progress metrics.
+                            </p>
+
+                            <p>
+                            Modify sprint details through <strong>/sprints/[sprint_id]/edit/</strong> to adjust timelines or objectives. Remove inactive sprints at <strong>/sprints/[pk]/delete/</strong> to maintain clarity. The system automatically calculates sprint velocity and burn-down metrics for performance tracking.
+                            </p>
+
+                            <p>
+                            Connect tasks to sprints using <strong>/tasks/sprint/add/[sprint_id]/</strong> for organized execution. Review related tasks through the sprint detail view for workload balancing. These endpoints create a structured Agile workflow for your team.
+                            </p>     
                         </p>
-                        <a href="" class="btn btn-success">Learn More about Sprints</a>
+                        <a href="{% url 'tasks:sprint-list' %}" class="btn btn-success">Learn More about Sprints</a>
                     </div>
                 </div>
             </div>
@@ -73,13 +112,23 @@
             <!-- Epics -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Epics">
+                    <img src="{% static 'images/epic.png' %}" class="card-img-top" alt="Epics" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">Epics</h5>
                         <p class="card-text">
-                            Organize your work at a higher level with epics. Group related tasks and sprints under a common goal.
+                            <p>
+                            Epics are managed at <strong>/epics/</strong>, providing overviews of major initiatives. Create new epics through <strong>/epics/new/</strong> to group related sprints and tasks. Each epic's details are available at <strong>/epics/[pk]/</strong>, showing progress across all child items.
+                            </p>
+
+                            <p>
+                            Update epic scope and objectives via <strong>/epics/[pk]/edit</strong> as requirements evolve. Remove completed epics at <strong>/epics/[pk]/delete/</strong> to focus on active work. The system maintains cross-epic dependency tracking for complex projects.
+                            </p>
+
+                            <p>
+                            For batch operations, use <strong>/epic/[epic_pk]/</strong> to manage multiple tasks simultaneously. The epic detail view shows how individual tasks contribute to larger strategic goals, maintaining alignment across your organization.
+                            </p>                        
                         </p>
-                        <a href="" class="btn btn-warning">Learn More about Epics</a>
+                        <a href="{% url 'tasks:epic-list' %}" class="btn btn-warning">Learn More about Epics</a>
                     </div>
                 </div>
             </div>
@@ -87,13 +136,23 @@
             <!-- Contacts -->
             <div class="col-md-6">
                 <div class="card h-100">
-                    <img src="" class="card-img-top" alt="Contacts">
+                    <img src="{% static 'images/contact_us.png' %}" class="card-img-top" alt="Contacts" width="500" height="400">
                     <div class="card-body">
                         <h5 class="card-title">Contacts</h5>
                         <p class="card-text">
-                            Connect with your team and stakeholders. Manage contact information and keep everyone in sync.
+                            <p>
+                            Reach our team through the <strong>/contact/</strong> endpoint, designed for all support inquiries and feedback. The contact form collects your message details and contact information, with submissions processed securely. Upon successful submission, you'll be redirected to <strong>/contact-success/</strong> for confirmation.
+                            </p>
+
+                            <p>
+                            For technical issues, include relevant details like error messages from <strong>/tasks/</strong> or <strong>/sprints/</strong> operations. Our team typically responds within 24 hours to all inquiries submitted through this channel. The system logs all contact attempts for quality assurance purposes.
+                            </p>
+
+                            <p>
+                            Combine this with our documentation at <strong>/help/</strong> for comprehensive support. For account-specific issues, have your user information ready from <strong>/accounts/profile/</strong>. This streamlined process ensures efficient resolution of all inquiries.
+                            </p>
                         </p>
-                        <a href="" class="btn btn-danger">Learn More about Contacts</a>
+                        <a href="{% url 'tasks:contact' %}" class="btn btn-danger">Contact Us</a>
                     </div>
                 </div>
             </div>

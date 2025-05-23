@@ -1,46 +1,121 @@
 {% extends "tasks/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} Task Details {% endblock %}
 
 {% block content %}
 
-<h1 class="text-center" style="margin-bottom:-8rem;">Task Details</h1>
-<div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container text-center">
-        <h2 class="mb-4">{{ task.title }}</h2>
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Description</h2>
-                <p class="card-text">{{task.description}}</p>
-                <p>Created Date: {{ task.created_at }}</p>
-                <p>Due Date: {{ task.due_date }}</p>
+<!-- Main Task Details Container -->
+<div class="task-details-container">
+    <div class="task-header">
+        <h1 class="task-details-heading">Task Details</h1>
+        <!-- Add Task Button -->
+        <a href="{% url 'tasks:sprint-batch-create' task.id %}" class="add-task-btn">
+            Manage Sprint related to task
+        </a>
+    </div>
 
-                <!--Email list-->
-                <h3>Watchers</h3>
-                <ul class="list-unstyled">
-                    {% for watcher in task.watchers.all %}
-                        <li>{{watcher.email}}</li>
-                    {% endfor %}
-                </ul>
-
-                {% if task.file_upload %}
-                    <a href="{{ task.file_upload.url }}" download>Download File</a>
-                {% endif %}
-
-                {% if task.image_upload %}
-                    <div>
-                        <img src="{{ task.image_upload.url}}" alt="Task Image" style="max-width: 300px;">
-                    </div>
-                {% endif %}
-
-            </div>
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
         </div>
+    {% endif %}
 
-        <div class="mt-4 d-inline-block">
-            <a href="{% url 'tasks:task-update' task.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Edit</a>
-            <a href = "{% url 'tasks:task-delete' task.id %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Delete</a>
-            <a href="{% url 'tasks:task-list' %}" class='btn btn-small mx-2' style="border: 2px solid #007bff;">Back to Task List</a>
-        </div>
+    <div class="task-card">
+        <h2>{{ task.title }}</h2>
+        <p><strong>Description:</strong> {{ task.description }}</p>
+        <p><strong>Created Date:</strong> {{ task.created_at }}</p>
+        <p><strong>Due Date:</strong> {{ task.due_date }}</p>
+        <p><strong>Status:</strong> {{ task.status }}</p>
 
+        {% if not task.owner %}
+        <form method="post" action="{% url 'tasks:task-claim' task.id %}">
+            {% csrf_token %}
+            <p><strong>Owner:</strong> Unassigned</p>
+            <button type="submit" class="btn btn-primary" title="Claim this task">Claim Task</button>
+        </form>
+        {% else %}
+        <p><strong>Owner:</strong> {{ task.owner }}</p>
+        {% endif %}
+    </div>
+
+    <div class="task-section">
+        <h3>Watchers</h3>
+        <ul>
+            {% for watcher in task.watchers.all %}
+                <li>{{ watcher.email }}</li>
+            {% empty %}
+                <p>No watchers assigned to this task.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if task.file_upload or task.image_upload %}
+    <div class="task-section">
+        <h3>Attachments</h3>
+        {% if task.file_upload %}
+            <p><a href="{{ task.file_upload.url }}" download>Download File</a></p>
+        {% endif %}
+        {% if task.image_upload %}
+            <img src="{{ task.image_upload.url }}" alt="Task Image">
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Mini Container for Buttons -->
+    <div class="action-buttons">
+        <a href="{% url 'tasks:task-update' task.id %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'tasks:task-delete' task.id %}" class="btn btn-secondary">Delete</a>
+        <a href="{% url 'tasks:task-list' %}" class="btn btn-secondary">Back to Task List</a>
     </div>
 </div>
 
-{% endblock  %}
+<!-- Separate Container for Comments Section -->
+<div class="comments-container">
+    <div class="task-section">
+        <h3>Comments related to Task</h3>
+        {% if comments %}
+            {% for comment in comments %}
+            <div class="comment-box">
+                <p><strong>{{ comment.author }}</strong></p>
+                <p>{{ comment.comment }}</p>
+                <p class="text-muted"><small>{{ comment.created_at }}</small></p>
+
+                {% for reply in comment.replies.all %}
+                    <div class="reply-box">
+                        <p><strong>{{ reply.author }}</strong> (Reply):</p>
+                        <p>{{ reply.comment }}</p>
+                        <p class="text-muted"><small>{{ reply.created_at }}</small></p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments for this task.</p>
+        {% endif %}
+    </div>
+
+    <div class="task-section">
+        <h3>Discuss on Task Progress</h3>
+        <form method="post" action="{% url 'tasks:task-detail' task.id %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+                {% if field.errors %}
+                    <div class="alert alert-danger">{{ field.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

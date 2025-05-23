@@ -17,12 +17,11 @@ from tasks.services.task_services import (
     remove_task_from_sprint,
     check_task,
 )
-from tasks.services.sprint_services import create_sprint, set_sprint_epic
-from tasks.models import Task, Sprint, Epic
+from tasks.models import Task, Sprint, Epic, Comment
 from rest_framework import status
 from django.conf import settings
 from collections import defaultdict
-from tasks.forms import TaskForm, ContactForm, EpicFormSet, SprintForm, SprintFormSet, EpicForm
+from tasks.forms import TaskForm, ContactForm, EpicFormSet, SprintForm, SprintFormSet, EpicForm, CommentForm
 from tasks.services.services import send_contact_email
 from tasks.services.epic_services import (
     get_epic_by_id,
@@ -30,6 +29,8 @@ from tasks.services.epic_services import (
     save_task_for_epic,
 )
 from tasks.services.sprint_services import (
+    create_sprint, 
+    set_sprint_epic,
     get_task_by_id,
     get_sprint_by_task,
     save_sprint_for_task,
@@ -38,12 +39,46 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
+from django.db.models import Q
+from django.db.models.functions import Lower
+from django.contrib import messages
+
 
 
 User = get_user_model()
 
 
 # Create your views here.
+
+
+
+# view for home page of our website
+@login_required
+def task_home(request):
+
+    search_query = request.GET.get("query", "")
+    
+    #  fetch all tasks at once
+    tasks = Task.objects.filter(Q(title__icontains=search_query) if search_query else Q(),
+        status__in=["UNASSIGNED", "IN_PROGRESS", "DONE", "ARCHIVED"]
+    )
+
+    # imnitial dictionary
+    context = defaultdict(list)
+
+    # Categorize task into their respective list
+    for task in tasks:
+        if task.status == "UNASSIGNED":
+            context["unassigned_tasks"].append(task)
+        elif task.status == "IN_PROGRESS":
+            context["in_progress_tasks"].append(task)
+        elif task.status == "DONE":
+            context["done_tasks"].append(task)
+        elif task.status == "ARCHIved":
+            context["archived_tasks"].append(task)
+
+    return render(request, "tasks/home.html", context)
+
 
 
 # LoginRequiredMixin added before any Generic Views, which will protect from accessing class-based-view from unauthenticated user
@@ -56,11 +91,60 @@ class TaskListView(PermissionRequiredMixin, ListView):
     login_url = "accounts/login/"
     raise_exception = True
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter_by = self.request.GET.get('filter_task_by')      # Matches the 'name' in <select>
+        filter_status = self.request.GET.get('status')
+
+        if filter_by == "by_created_date":
+            queryset  = queryset.order_by("created_at")
+        elif filter_by == "by_name":
+            queryset = queryset.order_by(Lower("title"))
+
+        if filter_status and filter_status != "all":
+            queryset = queryset.filter(status=filter_status)
+
+        return queryset
+
+
 
 class TaskDetailView(DetailView):
     model = Task
     template_name = "tasks/task_details.html"
     context_object_name = "task"
+    form_class = CommentForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        context["comments"] = Comment.objects.filter(task=self.get_object(), reply__isnull=True).prefetch_related('replies')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        # check if user is authenticated
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be loged in to post a comment.")
+            return redirect(self.get_success_url())
+
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.task = self.object
+
+            comment.save()
+
+            messages.success(request, "Comment posted successfully!")
+        else:
+            messages.error(request, "Faild to post the comment. Please try again.")
+
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy("tasks:task-detail", kwargs={"pk": self.object.pk})
 
 
 class TaskCreateView(LoginRequiredMixin, SprintTaskWithinRangeMixin, CreateView):
@@ -163,6 +247,7 @@ def create_task_on_sprint(request: HttpRequest, sprint_id: int) -> HttpResponse:
     return render(request, "tasks/task_form.html", {"form": form})
 
 
+@login_required
 def claimed_task_view(request, task_id):
     """
     This view is for claimed ownership of task.
@@ -173,15 +258,20 @@ def claimed_task_view(request, task_id):
 
     try:
         claim_task(user_id, task_id)
-        return JsonResponse({"message": "Task Sucessfully claimed."})
+        messages.success(request, "Task successfully claimed.")
+        # return JsonResponse({"message": "Task Sucessfully claimed."})
 
     except Task.DoesNotExist:
-        return HttpResponse("Task Does Not Exist", status=status.HTTP_404_NOT_FOUND)
+        messages.error(request, "Task Does Not Exist.")
+        # return HttpResponse("Task Does Not Exist", status=status.HTTP_404_NOT_FOUND)
 
     except TaskAlreadyClaimedException:
-        return HttpResponse(
-            "Task is already Climed or Completed", status=status.HTTP_400_BAD_REQUEST
-        )
+        messages.error(request, "Task is already Climed or Completed.")
+        # return HttpResponse(
+        #     "Task is already Climed or Completed", status=status.HTTP_400_BAD_REQUEST
+        # )
+    
+    return redirect('tasks:task-detail', pk=task_id)
 
 
 @login_required
@@ -264,35 +354,21 @@ def my_view(request):
     return render(request, "my_template.html", context)
 
 
-# view for home page of our website
-def task_home(request):
-
-    #  fetch all tasks at once
-    tasks = Task.objects.filter(
-        status__in=["UNASSIGNED", "IN_PROGRESS", "DONE", "ARCHIVED"]
-    )
-
-    # imnitial dictionary
-    context = defaultdict(list)
-
-    # Categorize task into their respective list
-    for task in tasks:
-        if task.status == "UNASSIGNED":
-            context["unassigned_tasks"].append(task)
-        elif task.status == "IN_PROGRESS":
-            context["in_progress_tasks"].append(task)
-        elif task.status == "DONE":
-            context["done_tasks"].append(task)
-        elif task.status == "ARCHIved":
-            context["archived_tasks"].append(task)
-
-    return render(request, "tasks/home.html", context)
-
 
 # view for sprints
 def sprint_list_view(request):
     # fetch all sprints
     sprints = Sprint.objects.all()
+
+    if request.method == "GET":
+        filter_sprint = request.GET.get('filter_sprint_by')
+
+        if filter_sprint == "by_created_date":
+            sprints = sprints.order_by("created_at")
+        elif filter_sprint == "by_name":
+            sprints = sprints.order_by(Lower("name"))
+
+
     context = {"sprints": sprints}
 
     return render(request, "tasks/sprints_list.html", context=context)
@@ -448,6 +524,15 @@ class SprintDeleteView( PermissionRequiredMixin, DeleteView):
 def epic_list_view(request):
     # fetch all Epic
     epics = Epic.objects.all()
+
+    if request.method == "GET":
+        filter_epic = request.GET.get("filter_epic_by")
+
+        if filter_epic == "by_created_date":
+            epics = epics.order_by("created_at")
+        elif filter_epic == "by_name":
+            epics = epics.order_by(Lower("name"))
+
     context = {"epics": epics}
 
     return render(request, "tasks/epics_list.html", context=context)
@@ -501,12 +586,17 @@ class ContactFormView(FormView):
         subject = form.cleaned_data.get("subject")
         message = form.cleaned_data.get("message")
         from_email = form.cleaned_data.get("from_email")
+        to_email = "taskmanageradmin@gmail.com"
+
+        print("Arguments being passed:")
+        print(f"subject: {subject}, message: {message}, from_email: {from_email}, to_email: {to_email}")
+
 
         send_contact_email(
             subject=subject,
             message=message,
             from_email=from_email,
-            to_email=["user16@gmail.com"],
+            to_email= [to_email],    # must be a list
         )
 
         return super().form_valid(form)
@@ -560,7 +650,4 @@ class EpicUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("tasks:epic-detail", kwargs={"pk": self.object.id})
-
-
-
 

@@ -35,7 +35,12 @@ Task Manager
                         </div>
                     </div>
                     {% empty %}
-                    <p>No tasks are currently unassigned.</p>
+                    <!-- Card displayed when no tasks are in progress -->
+                    <div class="card my-2" style="border: 1px solidrgb(154, 154, 154); box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);">
+                        <div class="card-body" style="text-align: center;">
+                            <p style="margin: 0; font-style: italic;">No tasks are currently Unassigned.</p>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -59,7 +64,12 @@ Task Manager
                         </div>
                     </div>
                     {% empty %}
-                    <p>No tasks are currently in progress.</p>
+                    <!-- Card displayed when no tasks are in progress -->
+                    <div class="card my-2" style="border: 1px solidrgb(154, 154, 154); box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);">
+                        <div class="card-body" style="text-align: center;">
+                            <p style="margin: 0; font-style: italic;">No tasks are currently In Progress.</p>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -83,7 +93,12 @@ Task Manager
                         </div>
                     </div>
                     {% empty %}
-                    <p>No tasks are completed yet.</p>
+                    <!-- Card displayed when no tasks are in progress -->
+                    <div class="card my-2" style="border: 1px solidrgb(154, 154, 154); box-shadow: 0 0 10px rgba(106, 17, 203, 0.2);">
+                        <div class="card-body" style="text-align: center;">
+                            <p style="margin: 0; font-style: italic;">No tasks are Completed yet.</p>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>

@@ -7,6 +7,7 @@ from datetime import datetime, date
 from django.db.models import F
 from tasks.enums import TaskStatus
 from django.http import Http404
+from datetime import timezone
 
 
 
@@ -99,7 +100,7 @@ def check_task(task_id):
 
 def create_task_and_add_to_sprint(
     task_data: dict[str, str], sprint_id: int, creator: User
-):
+) -> Task:
     """
     create a task and add it to a sprint
     """
@@ -108,12 +109,13 @@ def create_task_and_add_to_sprint(
     sprint = Sprint.objects.get(id=sprint_id)
 
     # get current time and date for task
-    now = datetime.now()
+    now = timezone.now().date()
 
     # lets check is time is within sprint time
-    if not sprint.start_date <= now.date() <= sprint.end_date:
+    if not (sprint.start_date <= now <= sprint.end_date):
         raise ValidationError(
-            "Cannot add task to sprint: current time is not within a sprint startdate and enddate"
+             f"Cannot add task to sprint: Task creation date {now} is outside sprint period "
+            f"({sprint.start_date} to {sprint.end_date})"
         )
 
     # transaction.atomic ensure that all operation completed successfully or not at all
@@ -139,7 +141,7 @@ class TaskAlreadyClaimedException(Exception):
 def claim_task(user_id: int, task_id: int) -> None:
 
     # lock the task row to prevent other transactions from claiming it simultaneously
-    task = Task.objects.select_for_update.get(id=task_id)
+    task = Task.objects.select_for_update().get(id=task_id)
 
     # check id task already climed
     if task.owner_id:
@@ -201,23 +203,28 @@ def remove_task_from_sprint(sprint_id: int, task_id: int) -> None:
         raise ValueError("Task is not associated with the Sprint.")
 
 
-def claim_task(task_id: int, user: User):
-    """
-    Service to claim a task by a user.
-    """
+# def claim_task(task_id: int, user: User):
+#     """
+#         Service to claim a task by a user.
+#         :param task_id: ID of the task to claim
+#         :param user: The user claiming the task
+#         :raises Http404: If the task does not exist
+#         :raises PermissionError: If the user is not authenticated or the task is already claimed
+#         :return: True if the task was successfully claimed
+#     """
 
-    if not user and not isinstance(user, User):
-        raise PermissionError("Authentication Required.")
+#     if not user and not isinstance(user, User):
+#         raise PermissionError("Authentication Required.")
     
-    task = Task.objects.filter(id=task_id).first()
+#     task = Task.objects.filter(id=task_id).first()
 
-    if not task:
-        raise Http404("Task Does Not Exist.")
+#     if not task:
+#         raise Http404("Task Does Not Exist.")
     
-    if task.owner:
-        raise PermissionError("The Task is already claimed.")
+#     if task.owner:
+#         raise PermissionError("The Task is already claimed.")
     
-    task.owner = user
-    task.save()
+#     task.owner = user
+#     task.save()
 
     return True

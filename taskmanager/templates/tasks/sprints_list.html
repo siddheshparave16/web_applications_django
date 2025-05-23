@@ -1,13 +1,35 @@
 {% extends "tasks/base.html" %}
+{% block title %} Sprint List {% endblock %}
 
 {% block content %}
-   <h1>Sprint List</h1>
+<div class="sprint-list-container">
+   <h1 class="sprint-list-heading">Sprint List</h1>
 
-   <ul>
+   <!-- Filter Sprint Form -->
+   <form method="get" id="filter-sprint-form">
+      <select class="form-select" name="filter_sprint_by" onchange="submitFilterSprintForm();">
+         <option value="all" {% if request.GET.filter_sprint_by != "by_created_date" and request.GET.filter_sprint_by != "by_name"%}selected{% endif %}> All Sprint</option>
+         <option value="by_created_date" {% if request.GET.filter_sprint_by == "by_created_date"%}selected{% endif %}>By Created Date</option>
+         <option value="by_name" {% if request.GET.filter_sprint_by == "by_name" %}selected{% endif %}>By Name</option>
+      </select>
+   </form>
+
    {% for sprint in sprints %}
-      <li>
+      <div class="sprint-item">
          <a href="{% url 'tasks:sprint-detail' sprint.id %}">{{sprint.name}}</a>
-      </li>
+         <p>Created Date: {{sprint.created_at}}</p>
+      </div>
+   {% empty %}
+      <div class="sprint-item no-item">No Sprints are available.</div>
    {% endfor %}
-   <ul>
+</div>
+{% endblock %}
+
+{% block extra_javascript %}
+<script>
+    // Function to submit the form on change of any dropdown
+    function submitFilterSprintForm() {
+        document.getElementById('filter-sprint-form').submit();
+    }
+</script>
 {% endblock  %}
