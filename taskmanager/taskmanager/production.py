@@ -2,7 +2,22 @@ from .base import *
 import os
 
 DEBUG = False
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST', 'postgres-0.taskmanager.svc.cluster.local'),  # Must use this
+        'PORT': os.environ.get('DB_PORT', '5432'),
+        'OPTIONS': {
+            'connect_timeout': 5,  # Add connection timeout
+        },
+    }
+}
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -17,12 +32,15 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False").lower() == "true"
 # Media file storage
 # DEFAULT_FILE_STORAGE = "" 
 
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_LOCATION", "redis://127.0.0.1:6379/1"),
+        "LOCATION": os.getenv("REDIS_LOCATION", "redis://redis-0.taskmanager.svc.cluster.local:6379/1"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+            "SOCKET_CONNECT_TIMEOUT": 5,  # 5 seconds
+            "SOCKET_TIMEOUT": 5,
+        },
     }
 }

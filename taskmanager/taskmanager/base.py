@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=m@9kt-z@8wvqo8a#8d#x4-rjw)!kw=s*9*9_$5*ocln9q1tw)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,18 +40,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # manually installed apps
     "django_extensions",
-    "debug_toolbar",
     "tasks",
     "storages",
     "widget_tweaks",
     "accounts",
+    "health"
 ]
 
 MIDDLEWARE = [
     "tasks.middlewares.RequestTimeMiddleware",  # Custom middleware
     "django.middleware.security.SecurityMiddleware",
     "csp.middleware.CSPMiddleware",  # CSP Middleware (Add it here)
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Debug toolbar
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -95,12 +94,12 @@ WSGI_APPLICATION = "taskmanager.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "task_manager",
-        "USER": "postgres",
-        "PASSWORD": "siddhesh",
-        "HOST": "127.0.0.1",  # Use localhost or 127.0.0.1 when running outside Docker
-        "PORT": "5432",  # Port exposed by Docker
+        "ENGINE": "django.db.backends.postgresql",  # From ConfigMap
+        "NAME": os.getenv("DB_NAME"),   # From ConfigMap
+        "USER": os.getenv("DB_USER"),   # From ConfigMap
+        "PASSWORD": os.getenv("DB_PASSWORD"),  # From Secret
+        "HOST": os.getenv("DB_HOST"),   # From ConfigMap
+        "PORT": os.getenv("DB_PORT"),   # From ConfigMap
     }
 }
 
@@ -191,17 +190,8 @@ else:
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "/media/"
 
-"""
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
-"""
+# SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Default (not Redis)
+
 
 
 # login and logout redirect
@@ -275,3 +265,10 @@ NINJA_PAGINATION_CLASS = "tasks.pagination.CustomTaskManagerPagination"
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRETE_KEY", "jwt_secret")
 JWT_REFRESH_SECRET_KEY = os.getenv("JWT_REFRESH_SECRET_KEY", "jwt_refresh_secret")
+
+# Disable Redis for local development
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app-deployment
+  namespace: taskmanager
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: taskmanagerapp
+  template:
+    metadata:
+      labels:
+        app: taskmanagerapp
+    spec:
+      containers:
+        - name: django-app
+          image: siddheshparave16/web_applications_django:latest
+          ports:
+            - containerPort: 8000
+          envFrom: 
+            - configMapRef:
+                name: taskmanager-settings
+            - secretRef:
+                name: taskmanager-db-secret
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1.5Gi"  # Increased limit
+          startupProbe:
+            httpGet:
+              path: /health/readiness/
+              port: 8000
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/readiness/
+              port: 8000
+              httpHeaders:
+              - name: Host
+                value: "localhost"
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8000
+              httpHeaders:
+              - name: Host
+                value: "localhost"
+            initialDelaySeconds: 15
+            periodSeconds: 10
