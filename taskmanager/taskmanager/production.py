@@ -3,7 +3,7 @@ import os
 
 DEBUG = False
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 DATABASES = {
     'default': {

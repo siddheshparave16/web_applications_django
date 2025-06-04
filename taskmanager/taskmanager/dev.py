@@ -4,7 +4,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-dev-secret-key-please-change')
 
 # Development-specific app and middlewares
 INSTALLED_APPS += [

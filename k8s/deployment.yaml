@@ -27,34 +27,37 @@ spec:
                 name: taskmanager-settings
             - secretRef:
                 name: taskmanager-db-secret
+          env:
+            - name: POSTGRES_HOST
+              value: "localhost,127.0.0.1,0.0.0.0,django-app-deployment.taskmanager.svc.cluster.local"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: DJANGO_SETTINGS_MODULE
+              value: "taskmanager.production"
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
-              cpu: "1"
-              memory: "1.5Gi"  # Increased limit
-          startupProbe:
+              cpu: "500m"
+              memory: "1Gi"
+          livenessProbe:
             httpGet:
-              path: /health/readiness/
+              path: /health/liveness/
               port: 8000
-            failureThreshold: 30
-            periodSeconds: 5
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+
           readinessProbe:
             httpGet:
               path: /health/readiness/
               port: 8000
-              httpHeaders:
-              - name: Host
-                value: "localhost"
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /health/liveness
-              port: 8000
-              httpHeaders:
-              - name: Host
-                value: "localhost"
-            initialDelaySeconds: 15
+            initialDelaySeconds: 40
+            timeoutSeconds: 10
             periodSeconds: 10
+            failureThreshold: 3
+
+
+

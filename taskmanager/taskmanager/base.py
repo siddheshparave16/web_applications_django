@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "storages",
     "widget_tweaks",
     "accounts",
-    "health"
+    "health",
 ]
 
 MIDDLEWARE = [
