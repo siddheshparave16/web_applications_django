@@ -25,10 +25,8 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("api/v1/", api.urls),
-    # path("api/v1/docs", )
-    path(
-        "", include("tasks.urls", namespace="tasks")
-    ),  # includes task URLS with a namespace
+    path("health/", include("health.urls", namespace="health")),
+    path("", include("tasks.urls", namespace="tasks")),
 ]
 
 if settings.DEBUG:

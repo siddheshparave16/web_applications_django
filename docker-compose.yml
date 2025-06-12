@@ -1,16 +1,67 @@
 version: '3.8'
+
 services:
+  django-app:
+    image: siddheshparave16/web_applications_django:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: task_manager
+      DB_USER: postgres
+      DB_PASSWORD: siddhesh
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - db
+      - redis
+    networks:
+      - my-network
   db:
     image: postgres:latest
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_PASSWORD: siddhesh
+      POSTGRES_DB: task_manager
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - my-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - my-network
+    volumes:
+      - ./mailhog-data:/maildir
+    environment:
+      MH_MAILDIR_UID: 1000
+      MH_MAILDIR_GID: 1000
+    command: ["-storage=maildir", "-maildir-path=/maildir"]
+    user: "1000:1000"
 
 volumes:
-  postgres_data:
+  postgres-data:
+  redis_data:
 
+networks:
+  my-network:
+    driver: bridge

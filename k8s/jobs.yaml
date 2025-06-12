@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: taskmanager-migrate
+  namespace: taskmanager
+spec:
+  template:
+    spec:
+      containers:
+      - name: taskmanagerapp
+        image: siddheshparave16/web_applications_django
+        command: ["python", "manage.py", "migrate"]
+        env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: "taskmanager.production"
+        - name: DB_HOST 
+          value: "postgres"
+        envFrom:
+        - configMapRef:
+            name: taskmanager-settings
+        - secretRef:
+            name: taskmanager-db-secret
+      restartPolicy: Never
+  backoffLimit: 4
