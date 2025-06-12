@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+  django-app:
+    image: siddheshparave16/web_applications_django:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: task_manager
+      DB_USER: postgres
+      DB_PASSWORD: siddhesh
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - db
+      - redis
+    networks:
+      - my-network
   db:
     image: postgres:latest
     restart: always
